@@ -2,6 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+/node_modules
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
