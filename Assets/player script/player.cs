@@ -30,7 +30,12 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        playerMove();
+        //playerMove();
+        if (Time.timeScale != 0)
+        {
+            // 游戏未暂停时才执行这里的代码
+            playerMove();
+        }
     }
 
     void playerMove()
