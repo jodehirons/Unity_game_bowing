@@ -32,7 +32,7 @@ public class LoginClass : MonoBehaviour
             conn.Open();
             Debug.Log("------链接成功------");
             //sql语句
-            string sqlQuary = "SELECT * FROM user;";
+            string sqlQuary = "SELECT * FROM player;";
             //string sqlQuary = "SELECT * FROM test;";
 
             Debug.Log(sqlQuary);
@@ -44,9 +44,9 @@ public class LoginClass : MonoBehaviour
             while (reader.Read())
             {
                 //通过reader获得数据库信息
-                Debug.Log(reader.GetString("username"));
+                Debug.Log(reader.GetString("name"));
                 Debug.Log(reader.GetString("password"));
-                if (reader.GetString("username") == username.text && reader.GetString("password")==password.text)
+                if (reader.GetString("name") == username.text && reader.GetString("password")==password.text)
                 {
                     Debug.Log("登录成功");
                     SceneManager.LoadScene("SampleScene");
