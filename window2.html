@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>work</title>
+    <style>
+      #outside{
+        width: 60%;
+        height: 650px;
+        margin: 0 auto;
+        border: black solid 2px;
+        background-color: #ded2d3;
+      }
+      #TAB{
+        width: 40%;
+        height: 600px;
+        border: black solid 2px;
+        margin-top: 20px;
+        margin-left: 2px;
+        align-items: center;
+        background-color: #e3e3d9;
+      }
+      #frient_Head{
+        width: 50%;
+        height: 25px;
+        float: left;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        user-select: none;
+      }
+      #score_Head{
+        width: 50%;
+        height: 25px;
+        float: left;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        user-select: none;
+      }
+      #score_Head:hover{
+        background-color: #a0b7c9;
+      }
+      #frient_Head:hover{
+        background-color: #a0b7c9;
+      }
+      .item_list{
+        width: 100%;
+        height: 25px;
+      }
+      #i_list{
+        width: 100%;
+        height: 570px;
+        border-top: #1c1a1a solid 2px;
+        margin-top: 25px;
+      }
+
+    </style>
+  </head>
+  <body>
+  <div id="outside">
+    <div id="TAB">
+      <div onclick="gotoF()" id="frient_Head">好友列表</div>
+      <div onclick="gotoS()" id="score_Head">排名列表</div>
+      <div id="i_list"></div>
+    </div>
+  </div>
+
+  <script>
+    var TAB = document.getElementById('TAB');
+
+    function gotoF(){
+      for(let i = 0; i < 10; i++){
+        var t = document.createElement('div');
+        t.className = 'item_list';
+
+      }
+    }
+    function gotoS(){
+
+    }
+  </script>
+  </body>
+</html>
