@@ -25,7 +25,6 @@ public class RawBlood : MonoBehaviour
     {
         float health = rawImage.rectTransform.sizeDelta.x;
         rawImage.rectTransform.anchoredPosition = new Vector2(health / 2 - head, rawImage.rectTransform.anchoredPosition.y);
-        Debug.Log(head);
         float t = health / 60;
         headText.text = t.ToString();
         
