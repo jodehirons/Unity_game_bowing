@@ -10,12 +10,13 @@ public class player : MonoBehaviour
     public float rotateSpeed;
     [Header("控制相关")]
     public float rotation;
-    public float N = 0;
+    public float N1 = 0;
+    public float N2 = 0;
     public float aboveRotation = 0;
     public float stopThere = 0;
     public float startThere = 0;
     public float Y_Position;
-    public float ContinueTime;
+    public float controlTime;
     [Header("其他相关")]
     public Rigidbody2D playerRB;
     public Transform playerTransform;
@@ -41,7 +42,7 @@ public class player : MonoBehaviour
     void Update()
     {
         adjustStay();
-        changeSpeed();
+        playerMove();
         AddSpeed();
     }
 
@@ -55,23 +56,28 @@ public class player : MonoBehaviour
         }
     }
 
-    void changeSpeed()
+  
+
+    void playerMove()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        playerMove(horizontal);
+        controlTime+= Time.deltaTime;
+        if (controlTime < 0.02f) return;
+        controlTime= 0;
+        float h1 = Input.GetAxis("HorizontalAB");
+        float h2 = Input.GetAxis("Horizontal");
+        float horizontal = 0;
+        float controlChange = 0.005f;
+        if (h1 < 0) horizontal -= controlChange;
+        else if(h1 > 0) horizontal += controlChange;
+        if (h2 < 0) horizontal -= controlChange;
+        else if(h2 > 0) horizontal += controlChange;
 
-    }
 
-    void playerMove(float horizontal)
-    {
-        
-
-        
-        if (horizontal != 0f && Mathf.Abs(N) <= Mathf.Abs(horizontal)) 
+        if (horizontal != 0f) 
         {
-            N = Mathf.Max(Mathf.Abs(N), Mathf.Abs(horizontal));
+            
             // 计算船的旋转角度
-            rotation = -horizontal * 180 + aboveRotation;
+            rotation = -horizontal * 90 + aboveRotation;
             
             if(rotation < -70)
             {
@@ -81,6 +87,7 @@ public class player : MonoBehaviour
             {
                 rotation = 70;
             }
+            aboveRotation = rotation;
             // 计算船的速度和移动方向
             Vector2 direction = new Vector2(Mathf.Cos((rotation+90) * Mathf.Deg2Rad), Mathf.Sin((rotation + 90) * Mathf.Deg2Rad));
 
@@ -88,11 +95,7 @@ public class player : MonoBehaviour
                 playerRB.velocity = direction * rotateSpeed;
             else playerRB.velocity = direction * rotateSpeed * startThere;
         }
-        if(horizontal == 0f)
-        {
-            N = 0;
-            aboveRotation = rotation;
-        }
+        
         
     }
     private void FixedUpdate()
