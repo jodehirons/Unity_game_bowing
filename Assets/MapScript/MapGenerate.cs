@@ -60,21 +60,23 @@ public class MapGenerate : MonoBehaviour
 
     void generateObject(float Y)
     {
-        for (float i = Y + 2, k = 0; i < Y + 18; i += 3)
+        int flag = 0;
+        for (float i = Y + 1, k = 0; i < Y + 18; i += 1.5f, flag++)
         {
-            float[] arr = {-5.4f, -1.5f, 2f, 5.4f };
-            bool[] index = new bool[4];
-            int mem = 2;
+            if (flag % 2 == 1) continue; 
+            float[] arr = {-6f,-4.5f, -3f, -1.5f, 0, 1.5f, 3f, 4.5f, 6f};
+            bool[] index = new bool[9];
+            int mem = 4;
             while(mem > 0)
             {
-                int j = Random.Range(0, 4);
+                int j = Random.Range(0, 1000)%9;
                 if(adjust(index, j))
                 {
                     index[j] = true;
                     mem--;
                 }
             }
-            for(int j = 0; j < 4; j++)
+            for(int j = 0; j < 9; j++)
             {
                 if (index[j] && k % 2 == 0)
                 {
@@ -86,9 +88,9 @@ public class MapGenerate : MonoBehaviour
                 }
             }
             k++;
-            if(i == Y+8)
+            if(i == Y+4 || i == Y + 13)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 9; j++)
                 {
                     if (!index[j])
                     {
@@ -131,20 +133,8 @@ public class MapGenerate : MonoBehaviour
 
     int GetIndex(int x)
     {
-        for(int i = 0; i < 6; i++)
-        {
-            x %= 6;
-            if (Obstacles[x].active)
-            {
-                return x;
-            }
-        }
-
-        for (int i = 0; i < 6; i++)
-        {
-            Obstacles[i].active = true;
-        }
-
+        if (Obstacles[x].active) return x;
+        Obstacles[x].active = true;
         return x;
     }
 
@@ -152,8 +142,7 @@ public class MapGenerate : MonoBehaviour
     {
         
         Vector3 a = new Vector3(x, y, 0);
-        int indexa = GetIndex(Random.Range(0, 6));
-        Obstacles[indexa].active = true;
+        int indexa = GetIndex(Random.Range(0, 1000)%6);
         Instantiate(Obstacles[indexa], a, Quaternion.identity);
         
     }
@@ -168,7 +157,7 @@ public class MapGenerate : MonoBehaviour
     
     void generateWall(float x, float y)
     {
-        int t = Random.Range(5, 9);
+        int t = Random.Range(1, 15)%9;
         int[,] arr = new int[3, 3]; 
         for(float i = 0; i < t; )
         {
@@ -187,7 +176,9 @@ public class MapGenerate : MonoBehaviour
             {
                 if (arr[i,j] == 0)
                 {
-                    Vector3 a = new Vector3(x-1+i, y-1+j, 0);
+                    float ina = i;
+                    float inb = j;
+                    Vector3 a = new Vector3(x-0.5f+ina/2, y-0.5f+inb/2, 0);
                     Obstacles[6].active = true;
                     Instantiate(Obstacles[6], a, Quaternion.identity);
                 }
