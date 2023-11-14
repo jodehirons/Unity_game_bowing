@@ -44,6 +44,8 @@ public class Login : MonoBehaviour
     public RawImage gameModePage;
     // 队名输入界面
     public RawImage teamNamePage;
+    // 教程界面
+    public RawImage turorialPage;
     void Start()
     {
         remind.gameObject.SetActive(false); // 提醒界面隐藏
@@ -52,6 +54,7 @@ public class Login : MonoBehaviour
         settingPage.gameObject.SetActive(false); // 设置界面隐藏
         gameModePage.gameObject.SetActive(false); // 游戏模式选择界面隐藏
         teamNamePage.gameObject.SetActive(false); // 队名输入界面隐
+        turorialPage.gameObject.SetActive(false); // 教程页面隐藏
 
         // mysql连接
         sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
