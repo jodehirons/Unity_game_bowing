@@ -12,9 +12,6 @@ using UnityEditor.MemoryProfiler;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// 登录类，处理登录和注册功能，管理数据库连接等。
-/// </summary>
 public class Login : MonoBehaviour
 {
     // 登录账号与密码
@@ -47,10 +44,6 @@ public class Login : MonoBehaviour
     public RawImage gameModePage;
     // 队名输入界面
     public RawImage teamNamePage;
-
-    /// <summary>
-    /// 在启用时执行，初始化登录界面和数据库连接。
-    /// </summary>
     void Start()
     {
         remind.gameObject.SetActive(false); // 提醒界面隐藏
@@ -83,9 +76,7 @@ public class Login : MonoBehaviour
         //}
     }
 
-    /// <summary>
-    /// 实现用户登录功能，验证用户名和密码。
-    /// </summary>
+    // 登录功能实现
     public void LoginButton()
     {
         //// 判断用户名和密码是否正确
@@ -199,9 +190,7 @@ public class Login : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 控制返回界面逻辑，隐藏提醒或注册界面。
-    /// </summary>
+    // 返回界面
     public void BackButton()
     {
         // 使名为"remind"的rawImage组件不可见
@@ -215,18 +204,14 @@ public class Login : MonoBehaviour
         }
         i = 2;
     }
-    /// <summary>
-    /// 控制跳转至注册界面逻辑。
-    /// </summary>
+    // 跳转注册界面
     public void RegisterButton()
     {
         // 使注册界面出现
         registerPage.gameObject.SetActive(true);
     }
 
-    /// <summary>
-    /// 实现注册功能，验证用户输入并向数据库插入新用户信息。
-    /// </summary>
+    // 注册功能实现
     public void RegisterPage_registerButton()
     {
         // 注册功能实现
@@ -315,9 +300,7 @@ public class Login : MonoBehaviour
         remind.gameObject.SetActive(true);
     }
 
-    /// <summary>
-    /// 控制音乐播放状态。
-    /// </summary>
+    // 音乐播放控制
     public void MusicControl()
     {
         // 切换播放状态
@@ -334,9 +317,7 @@ public class Login : MonoBehaviour
         isPlaying = !isPlaying;
     }
 
-    /// <summary>
-    /// 控制数据库界面显示状态。
-    /// </summary>
+    // 数据库界面控制
     public void RankListControl()
     {
         // 更新排行榜展示状态
@@ -346,9 +327,7 @@ public class Login : MonoBehaviour
         rankList.SetActive(isData);
     }
 
-    /// <summary>
-    /// 控制设置界面显示状态。
-    /// </summary>
+    // 设置界面控制
     public void SettingControl()
     {
         // 更新设置界面展示状态
@@ -358,9 +337,7 @@ public class Login : MonoBehaviour
         settingPage.gameObject.SetActive(isSetting);
     }
 
-    /// <summary>
-    /// 控制游戏模式跳转至队名输入界面。
-    /// </summary>
+    // 游戏模式跳转队名输入界面
     public void GameModeToTeamName()
     {
         // 使游戏模式选择界面不可见
@@ -369,9 +346,7 @@ public class Login : MonoBehaviour
         teamNamePage.gameObject.SetActive(true);
     }
 
-    /// <summary>
-    /// 控制队名输入界面跳转至游戏场景。
-    /// </summary>
+    // 队名输入界面跳转游戏场景
     public void TeamNameToGame()
     {
         // 使队名输入界面不可见
