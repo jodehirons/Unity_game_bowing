@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Camera类，用于处理与Camera移动相关的逻辑
+/// </summary>
 public class CameraSystem : MonoBehaviour
 {
     [Header("位置相关")]
@@ -10,6 +13,9 @@ public class CameraSystem : MonoBehaviour
     [Header("移动时间相关")]
     public float moveTime;
 
+    /// <summary>
+    /// 在每一帧更新后调用，用于处理Camera的移动
+    /// </summary>
     private void LateUpdate()
     {
         moveTime = 1.5f;
