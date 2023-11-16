@@ -34,6 +34,7 @@ public class Login : MonoBehaviour
     private int i = 2;
     // 音乐控制
     public AudioSource audioSource;
+    public AudioSource effectVolume;
     private bool isPlaying = true;
     // 数据库界面
     public GameObject rankList;
@@ -47,6 +48,8 @@ public class Login : MonoBehaviour
     public RawImage gameModePage;
     // 队名输入界面
     public RawImage teamNamePage;
+    // 教程界面
+    public RawImage turorialPage;
 
     /// <summary>
     /// 在启用时执行，初始化登录界面和数据库连接。
@@ -59,6 +62,7 @@ public class Login : MonoBehaviour
         settingPage.gameObject.SetActive(false); // 设置界面隐藏
         gameModePage.gameObject.SetActive(false); // 游戏模式选择界面隐藏
         teamNamePage.gameObject.SetActive(false); // 队名输入界面隐
+        turorialPage.gameObject.SetActive(false); // 教程页面隐藏
 
         // mysql连接
         sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
@@ -68,6 +72,10 @@ public class Login : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            effectVolume.Play();
+        }
         print(username.text);
         print(password.text);
         //if (Input.GetKeyDown(KeyCode.Tab))
@@ -204,6 +212,7 @@ public class Login : MonoBehaviour
     /// </summary>
     public void BackButton()
     {
+        turorialPage.gameObject.SetActive(false);
         // 使名为"remind"的rawImage组件不可见
         if (i == 2)
         {
@@ -378,5 +387,12 @@ public class Login : MonoBehaviour
         teamNamePage.gameObject.SetActive(false);
         // 跳转到游戏场景
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+    }
+
+    // 以下为教程界面跳转逻辑
+    public void TutorialToGame()
+    {
+        // 使教程界面可见
+        turorialPage.gameObject.SetActive(true);
     }
 }
