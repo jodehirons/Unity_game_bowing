@@ -48,6 +48,7 @@ public class Login : MonoBehaviour
     public RawImage gameModePage;
     // 队名输入界面
     public RawImage teamNamePage;
+    public TMP_InputField teamName;
     // 教程界面
     public RawImage turorialPage;
 
@@ -56,6 +57,8 @@ public class Login : MonoBehaviour
     /// </summary>
     void Start()
     {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetString("username", username.text);
         remind.gameObject.SetActive(false); // 提醒界面隐藏
         registerPage.gameObject.SetActive(false); // 注册界面隐藏
         rankList.SetActive(false); // 数据库界面隐藏
@@ -76,8 +79,6 @@ public class Login : MonoBehaviour
         {
             effectVolume.Play();
         }
-        print(username.text);
-        print(password.text);
         //if (Input.GetKeyDown(KeyCode.Tab))
         //{
         //    if (system.currentSelectedGameObject == username.gameObject)
@@ -96,66 +97,11 @@ public class Login : MonoBehaviour
     /// </summary>
     public void LoginButton()
     {
-        //// 判断用户名和密码是否正确
-        //if (username.text == "admin" && password.text == "admin")
-        //{
-        //    print("Login Success");
-        //    // 跳转到游戏场景
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-        //}
-        //else if (username.text != "admin" || password.text != "admin")
-        //{
-        //    print("用户名或密码错误");
-        //    // 让remindText的文本内容为"用户名或密码错误"
-        //    tip.text = "用户名或密码错误";
-        //    // 使名为"remind"的rawImage组件出现
-        //    remind.gameObject.SetActive(true);
-        //}
-
-        //Msql
-        
         try
         { 
             conn.Open();
             Debug.Log("connect successful");
 
-            //// 执行赋值PROCESS权限的SQL语句
-            //string grantQuery = "GRANT PROCESS ON *.* TO 'urrruruu'@'%';";
-
-            //using (MySqlCommand command = new MySqlCommand(grantQuery, conn))
-            //{
-            //    // 执行赋值操作
-            //    int rowsAffected = command.ExecuteNonQuery();
-
-            //    Console.WriteLine($"Privileges granted. Rows affected: {rowsAffected}");
-            //}
-            //Debug.Log("赋值权限完成");
-
-            //// 执行刷新权限
-            //string privilegesQuery = "FLUSH PRIVILEGES;";
-
-            //using (MySqlCommand command = new MySqlCommand(privilegesQuery, conn))
-            //{
-            //    // 执行刷新操作
-            //    int rowsAffected = command.ExecuteNonQuery();
-
-            //    Console.WriteLine($"Privileges refreshed. Rows affected: {rowsAffected}");
-            //}
-            //Debug.Log("刷新权限完成");
-
-            //// 执行刷新数据库的SQL语句
-            //string flushQuery = "FLUSH TABLES;";
-
-            //using (MySqlCommand command = new MySqlCommand(flushQuery, conn))
-            //{
-            //    // 执行刷新操作
-            //    int rowsAffected = command.ExecuteNonQuery();
-
-            //    Console.WriteLine($"Database refreshed. Rows affected: {rowsAffected}");
-            //}
-            //Debug.Log("刷新tables成功");
-
-            //sql语句
             string sqlQuary = "SELECT * FROM player;";
 
             Debug.Log(sqlQuary);
@@ -175,6 +121,9 @@ public class Login : MonoBehaviour
                 {
                     Debug.Log("登录成功");
                     flag = 1;
+                    PlayerPrefs.SetString("username", username.text);
+                    PlayerPrefs.SetInt("player_id", reader.GetInt32("player_id"));
+                    Debug.Log("username: " + PlayerPrefs.GetString("username"));
                     break;
                 }
                 else
@@ -244,18 +193,6 @@ public class Login : MonoBehaviour
             conn.Open();
             Debug.Log("connect successful");
 
-            //// 执行刷新数据库的SQL语句
-            //string flushQuery = "FLUSH TABLES;";
-
-            //using (MySqlCommand command = new MySqlCommand(flushQuery, conn))
-            //{
-            //    // 执行刷新操作
-            //    int rowsAffected = command.ExecuteNonQuery();
-
-            //    Console.WriteLine($"Database refreshed. Rows affected: {rowsAffected}");
-            //}
-
-            //sql语句
             string sqlQuary = "select * from player";
 
             Debug.Log(sqlQuary);
@@ -376,6 +313,7 @@ public class Login : MonoBehaviour
         gameModePage.gameObject.SetActive(false);
         // 使队名输入界面可见
         teamNamePage.gameObject.SetActive(true);
+
     }
 
     /// <summary>
@@ -386,6 +324,7 @@ public class Login : MonoBehaviour
         // 使队名输入界面不可见
         teamNamePage.gameObject.SetActive(false);
         // 跳转到游戏场景
+        PlayerPrefs.SetString("teamname", teamName.text);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
 

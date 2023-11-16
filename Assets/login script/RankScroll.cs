@@ -16,12 +16,13 @@ public class RankScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private float offset;
     private float size;
     private float index0y;
-    public TMP_Text username;
+    //public TMP_Text username;
+    private string username;
     public Info personRank;
     private string sqlSer;
     private MySqlConnection conn;
 
-    public void Start()
+    void OnEnable()
     {
         // 连接数据库
         sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
@@ -34,13 +35,16 @@ public class RankScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             int i = 0;
-            int flag = 1;
-            while (reader.Read() && i != 10)
+            int sign = 0;
+            Debug.Log("rank: username : " + username);
+            if (PlayerPrefs.GetString("username") != null)
+                username = PlayerPrefs.GetString("username");
+            else
+                username = "";
+
+            while (reader.Read())
             {
-                infos[i].n.text = reader.GetString("team_name");
-                infos[i].s.text = reader.GetString("highest_score");
-                infos[i].r.text = (i + 1).ToString();
-                string a = username.text.ToString();
+                string a = username.ToString();
                 string b = reader.GetString("name").ToString();
                 bool str = true;
                 for (int p = 0; p < Mathf.Min(a.Length, b.Length); p++)
@@ -50,27 +54,37 @@ public class RankScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                         str = false;
                     }
                 }
-                Debug.Log("username:" + a + "*" + b + "*" + a.Equals(b));
-                if (str)
+                if(i< 10)
                 {
-                    Debug.Log("FOUND");
-                    infos[i].n.color = Color.red;
-                    infos[i].s.color = Color.red;
-                    infos[i].r.color = Color.red;
+                    infos[i].n.text = reader.GetString("team_name");
+                    infos[i].s.text = reader.GetString("highest_score");
+                    infos[i].r.text = (i + 1).ToString();
+                    // 判断玩家是否在前十名
+                    Debug.Log("username:" + a + "*" + b + "*" + a.Equals(b));
+                    if (str && username != "")
+                    {
+                        Debug.Log("FOUND");
+                        infos[i].n.color = Color.red;
+                        infos[i].s.color = Color.red;
+                        infos[i].r.color = Color.red;
+                    }
+                }
+                if (str && username!="")
+                {
                     personRank.n.text = reader.GetString("team_name");
                     personRank.s.text = reader.GetString("highest_score");
                     personRank.r.text = (i + 1).ToString();
-                    flag = 0;
+                    sign = 1;
                 }
                 i++;
             }
-            reader.Close();
-            if (flag == 1)
+            if (sign == 0 || username == "")
             {
                 personRank.s.text = "您尚未拥有游玩记录";
                 personRank.n.text = "";
                 personRank.r.text = "";
             }
+            reader.Close();
         }
         catch (MySqlException ex)
         {
