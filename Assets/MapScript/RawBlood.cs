@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class RawBlood : MonoBehaviour
 {
-    public RawImage rawImage; // ÕâÊÇRaw Image×é¼şµÄÒıÓÃ  
-    public int maxHealth = 600; // ×î´óÑªÌõ³¤¶È  
+    public RawImage rawImage; // è¿™æ˜¯Raw Imageç»„ä»¶çš„å¼•ç”¨  
+    public int maxHealth = 600; // æœ€å¤§è¡€æ¡é•¿åº¦  
     public float head;
     public TextMeshProUGUI headText;
 

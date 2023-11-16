@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    [Header("ËÙ¶ÈÏà¹Ø")]
+    [Header("é€Ÿåº¦ç›¸å…³")]
     public float playerSpeed;
     public float rotateSpeed;
-    [Header("¿ØÖÆÏà¹Ø")]
+    [Header("æ§åˆ¶ç›¸å…³")]
     public float rotation;
     public float N1 = 0;
     public float N2 = 0;
@@ -21,9 +21,12 @@ public class player : MonoBehaviour
     public float controlCollider;
     public float controlMouse;
     public float controlRecover;
-    [Header("Î»ÖÃÏà¹Ø")]
+    public float controlMove;
+    public float controlScore;
+    public float abovePositon;
+    [Header("ä½ç½®ç›¸å…³")]
     public Vector3 shipOut;
-    [Header("ÆäËûÏà¹Ø")]
+    [Header("å…¶ä»–ç›¸å…³")]
     public Rigidbody2D playerRB;
     public Transform playerTransform;
     public GameObject portal;
@@ -32,6 +35,7 @@ public class player : MonoBehaviour
     public CapsuleCollider2D playerCollider;
     public TextMeshProUGUI SkillMouse;
     public TextMeshProUGUI DiedText;
+    public TextMeshProUGUI ScoreText;
 
 
     void Start()
@@ -46,7 +50,7 @@ public class player : MonoBehaviour
         ObstacleAudio = arr[1];
         Y_Position = playerTransform.position.y;
         playerCollider = GetComponent<CapsuleCollider2D>();
-        
+        abovePositon = -7;
     }
 
     
@@ -54,8 +58,21 @@ public class player : MonoBehaviour
     {
         if(DiedText.text == "0")
         {
-            //½áÊø
+            //ç»“æŸ
         }
+        controlMove += Time.deltaTime;
+        if(controlMove > 0.1f)
+        {
+            if(playerTransform.position.y - abovePositon >= 10)
+            {
+                controlScore += playerTransform.position.y - abovePositon;
+                abovePositon= playerTransform.position.y;
+            }
+            
+            ScoreText.text = "ç§¯åˆ†ï¼š" + Mathf.Floor(controlScore);
+            controlMove = 0;
+        }
+
         if (controlCollider == 0)
         {
             adjustStay();
@@ -73,7 +90,7 @@ public class player : MonoBehaviour
         {
             playerRB.velocity = new Vector2(0, playerSpeed);
             controlRecover += Time.deltaTime;
-            if(controlRecover > 2)
+            if(controlRecover > 1)
             {
                 playerCollider.isTrigger = false;
                 controlRecover= 0;
@@ -95,11 +112,12 @@ public class player : MonoBehaviour
             ObstacleAudio.Play();
             playerRB.velocity *= 0;
             stopThere = 1;
+            controlScore -= 10;
         }
         if (collision.gameObject.tag == "Blood")
         {
             BloodAudiio.Play();
-       
+            controlScore += 10;
         }
         if (collision.gameObject.tag == "portal")
         {
@@ -120,8 +138,8 @@ public class player : MonoBehaviour
         Vector3 clickPosition = new Vector3();
         if (Input.GetMouseButtonDown(0))
         {
-            clickPosition = Input.mousePosition;  // »ñÈ¡Êó±êµã»÷Î»ÖÃµÄ×ø±ê  
-            clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);  // Èç¹ûĞèÒª£¬°ÑÊó±êÆÁÄ»×ø±ê×ª»»³ÉÊÀ½ç×ø±ê  
+            clickPosition = Input.mousePosition;  // è·å–é¼ æ ‡ç‚¹å‡»ä½ç½®çš„åæ ‡  
+            clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);  // å¦‚æœéœ€è¦ï¼ŒæŠŠé¼ æ ‡å±å¹•åæ ‡è½¬æ¢æˆä¸–ç•Œåæ ‡  
             if (controlMouse == 0)
             {
                 shipOut = clickPosition;
@@ -135,10 +153,10 @@ public class player : MonoBehaviour
         {
             controlMouse += Time.deltaTime;
             float temp = Mathf.Ceil(10f - controlMouse);
-            SkillMouse.text = "Êó±ê£º"+ temp.ToString();
+            SkillMouse.text = "é¼ æ ‡ï¼š"+ temp.ToString();
             if (controlMouse >= 10f)
             {
-                SkillMouse.text = "Êó±ê£º¿ÉÓÃ";
+                SkillMouse.text = "é¼ æ ‡ï¼šå¯ç”¨";
                 controlMouse = 0;
             }
         }
@@ -175,7 +193,7 @@ public class player : MonoBehaviour
         if (horizontal != 0f || rotation != 0) 
         {
             
-            // ¼ÆËã´¬µÄĞı×ª½Ç¶È
+            // è®¡ç®—èˆ¹çš„æ—‹è½¬è§’åº¦
             rotation = -horizontal * 90 + aboveRotation;
             
             if(rotation < -70)
@@ -187,7 +205,7 @@ public class player : MonoBehaviour
                 rotation = 70;
             }
             aboveRotation = rotation;
-            // ¼ÆËã´¬µÄËÙ¶ÈºÍÒÆ¶¯·½Ïò
+            // è®¡ç®—èˆ¹çš„é€Ÿåº¦å’Œç§»åŠ¨æ–¹å‘
             Vector2 direction = new Vector2(Mathf.Cos((rotation+90) * Mathf.Deg2Rad), Mathf.Sin((rotation + 90) * Mathf.Deg2Rad));
 
             if(stopThere == 0)
@@ -200,7 +218,7 @@ public class player : MonoBehaviour
     private void FixedUpdate()
     {
         
-        // ÉèÖÃ´¬µÄĞı×ª½Ç¶È
+        // è®¾ç½®èˆ¹çš„æ—‹è½¬è§’åº¦
         playerTransform.rotation = Quaternion.Euler(0, 0, rotation);
         
 

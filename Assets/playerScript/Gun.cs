@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [Header("Ðý×ª")]
+    [Header("æ—‹è½¬")]
     public float controlTime;
     public float rotation;
     public GameObject gunShoot;
@@ -44,11 +44,11 @@ public class Gun : MonoBehaviour
         {
             controlShoot += Time.deltaTime;
             float temp = Mathf.Ceil(10f - controlShoot);
-            SkillShoot.text = "Éä»÷£º" + temp.ToString();
+            SkillShoot.text = "å°„å‡»ï¼š" + temp.ToString();
             if(controlShoot >= 10f)
             {
                 controlShoot = 0;
-                SkillShoot.text = "Éä»÷£º¿ÉÓÃ";
+                SkillShoot.text = "å°„å‡»ï¼šå¯ç”¨";
             }
         }
     }

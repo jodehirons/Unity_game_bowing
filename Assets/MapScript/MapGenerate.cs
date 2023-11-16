@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 
 public class MapGenerate : MonoBehaviour
 {
-    [Header("Íâ²¿ÊôĞÔ")]
+    [Header("å¤–éƒ¨å±æ€§")]
     public Transform playerTransform;
     public GameObject LeftMap;
     public GameObject RightMap;
@@ -15,7 +15,7 @@ public class MapGenerate : MonoBehaviour
     public GameObject[] Bloods;
     public AudioSource BackMusic;
     public GameObject Valley;
-    [Header("¿ØÖÆÊôĞÔ")]
+    [Header("æ§åˆ¶å±æ€§")]
     public float Y_Position = 20.5f;
     public int controlValley;
 

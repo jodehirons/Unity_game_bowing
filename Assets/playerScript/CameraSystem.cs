@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraSystem : MonoBehaviour
 {
-    [Header("位置相关")]
+    [Header("浣嶇疆鐩稿叧")]
     public Transform playerTarget;
     public Transform mapCamera;
-    [Header("移动时间相关")]
+    [Header("绉诲姩鏃堕棿鐩稿叧")]
     public float moveTime;
 
     private void LateUpdate()
