@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+
 /// <summary>
 /// Player类用于处理玩家的行为和属性
 /// </summary>
 public class player : MonoBehaviour
 {
+    /// <summary>
+    /// 控制船的动画切换
+    /// </summary>
+    Animator shipAnim;
+
     [Header("速度相关")]
     /// <summary>
     /// 玩家的移动速度
@@ -61,6 +67,7 @@ public class player : MonoBehaviour
     /// </summary>
     void Start()
     {
+        shipAnim = GetComponent<Animator>();
         playerRB = GetComponent<Rigidbody2D>();
         playerTransform = GetComponent<Transform>();
         playerSpeed = 1f;
@@ -161,9 +168,11 @@ public class player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Obstacle")
         {
+            shipAnim.SetBool("collision", true);
             ObstacleAudio.Play();
             playerRB.velocity *= 0;
             stopThere = 1;
+            
         }
         if(collision.gameObject.tag == "Blood")
         {
@@ -185,9 +194,13 @@ public class player : MonoBehaviour
             {
                 startThere = 0;
                 stopThere = 0;
+                shipAnim.SetBool("collision", false);
             }
         }
+
         
-        
+
     }
+
+
 }
