@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,13 +18,21 @@ public class player : MonoBehaviour
     public float startThere = 0;
     public float Y_Position;
     public float controlTime;
+    public float controlCollider;
+    public float controlMouse;
+    public float controlRecover;
+    [Header("位置相关")]
+    public Vector3 shipOut;
     [Header("其他相关")]
     public Rigidbody2D playerRB;
     public Transform playerTransform;
-    public GameObject obstaclePrefab;
+    public GameObject portal;
     public AudioSource BloodAudiio;
     public AudioSource ObstacleAudio;
-    
+    public CapsuleCollider2D playerCollider;
+    public TextMeshProUGUI SkillMouse;
+    public TextMeshProUGUI DiedText;
+
 
     void Start()
     {
@@ -36,14 +45,104 @@ public class player : MonoBehaviour
         BloodAudiio = arr[0];
         ObstacleAudio = arr[1];
         Y_Position = playerTransform.position.y;
+        playerCollider = GetComponent<CapsuleCollider2D>();
+        
     }
 
     
     void Update()
     {
-        adjustStay();
-        playerMove();
-        AddSpeed();
+        if(DiedText.text == "0")
+        {
+            //结束
+        }
+        if (controlCollider == 0)
+        {
+            adjustStay();
+            playerMove();
+            AddSpeed();
+            getMouse();
+        }
+        else
+        {
+            Vector2 a = new Vector2(shipOut.x - playerTransform.position.x, shipOut.y - playerTransform.position.y);
+            playerRB.velocity = a;
+            playerCollider.isTrigger = true;
+        }
+        if (controlRecover != 0)
+        {
+            playerRB.velocity = new Vector2(0, playerSpeed);
+            controlRecover += Time.deltaTime;
+            if(controlRecover > 2)
+            {
+                playerCollider.isTrigger = false;
+                controlRecover= 0;
+            }
+        }
+        
+        if(shipOut.y != 0 && playerTransform.position.y >= shipOut.y-0.1f)
+        {
+            controlCollider = 0;
+            controlRecover = 0.01f;
+            shipOut = Vector3.zero;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            ObstacleAudio.Play();
+            playerRB.velocity *= 0;
+            stopThere = 1;
+        }
+        if (collision.gameObject.tag == "Blood")
+        {
+            BloodAudiio.Play();
+       
+        }
+        if (collision.gameObject.tag == "portal")
+        {
+            if(shipOut.y != 0)
+            {
+                controlCollider = 1f;
+          
+            }
+            Destroy(collision.gameObject);
+        }
+
+    }
+
+    
+    
+    void getMouse()
+    {
+        Vector3 clickPosition = new Vector3();
+        if (Input.GetMouseButtonDown(0))
+        {
+            clickPosition = Input.mousePosition;  // 获取鼠标点击位置的坐标  
+            clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);  // 如果需要，把鼠标屏幕坐标转换成世界坐标  
+            if (controlMouse == 0)
+            {
+                shipOut = clickPosition;
+                Debug.Log(shipOut);
+                controlMouse = 0.01f;
+                Instantiate(portal, new Vector3(shipOut.x, shipOut.y, 0), Quaternion.identity);
+            }
+        }
+        
+        if (controlMouse != 0)
+        {
+            controlMouse += Time.deltaTime;
+            float temp = Mathf.Ceil(10f - controlMouse);
+            SkillMouse.text = "鼠标："+ temp.ToString();
+            if (controlMouse >= 10f)
+            {
+                SkillMouse.text = "鼠标：可用";
+                controlMouse = 0;
+            }
+        }
+        
     }
 
     void AddSpeed()
@@ -73,7 +172,7 @@ public class player : MonoBehaviour
         else if(h2 > 0) horizontal += controlChange;
 
 
-        if (horizontal != 0f) 
+        if (horizontal != 0f || rotation != 0) 
         {
             
             // 计算船的旋转角度
@@ -107,20 +206,7 @@ public class player : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Obstacle")
-        {
-            ObstacleAudio.Play();
-            playerRB.velocity *= 0;
-            stopThere = 1;
-        }
-        if(collision.gameObject.tag == "Blood")
-        {
-            BloodAudiio.Play();
-        }
-        
-    }
+    
 
     void adjustStay()
     {

@@ -14,18 +14,16 @@ public class MapGenerate : MonoBehaviour
     public GameObject[] Obstacles;
     public GameObject[] Bloods;
     public AudioSource BackMusic;
+    public GameObject Valley;
     [Header("øÿ÷∆ Ù–‘")]
     public float Y_Position = 20.5f;
-    public float controlObstacle = 0;
-    public float controlBlood = 0;
-    public float controlWall = 0;
-    public float controlStart = 0;
+    public int controlValley;
 
     // Start is called before the first frame update
     void Start()
     {
         map_Init();
-        BackMusic= GetComponent<AudioSource>();
+        BackMusic = GetComponent<AudioSource>();
         BackMusic.Play();   
     }
 
@@ -40,7 +38,14 @@ public class MapGenerate : MonoBehaviour
     {
         if(playerTransform.position.y + 18 > Y_Position)
         {
-            generateObject(Y_Position);
+            controlValley++;
+            if (controlValley % 3 == 0)
+            {
+                Vector3 a = new Vector3(0, Y_Position + 9, 0);
+                Instantiate(Valley, a, Quaternion.identity);
+                generateObject(Y_Position, 1);
+            }
+            else generateObject(Y_Position, 0);
             for(float i = 0f; i < 18; i++)
             {
                 Vector3 p_Left = new Vector3(-8.5f, Y_Position, 0);
@@ -58,11 +63,12 @@ public class MapGenerate : MonoBehaviour
         }
     }
 
-    void generateObject(float Y)
+    void generateObject(float Y, float gg)
     {
         int flag = 0;
         for (float i = Y + 1, k = 0; i < Y + 18; i += 1.5f, flag++)
         {
+            if(gg == 1 && i > Y + 7) i += 4.5f;
             
             float[] arr = {-6f,-4.5f, -3f, -1.5f, 0, 1.5f, 3f, 4.5f, 6f};
             bool[] index = new bool[9];
@@ -129,7 +135,7 @@ public class MapGenerate : MonoBehaviour
             Instantiate(LeftMap, p_Left, Quaternion.Euler(0,0,90));
             Instantiate(RightMap, p_Right, Quaternion.Euler(0, 0, -90));
         }
-        generateObject(0);
+        generateObject(0, 0);
 
     }
 

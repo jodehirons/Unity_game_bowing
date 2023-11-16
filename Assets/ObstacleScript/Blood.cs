@@ -18,14 +18,16 @@ public class Blood : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && flag)
         {
-            gameObject.SetActive(false);
+            
             if(rawImage.rectTransform.sizeDelta.x < 600)
             {
                 rawImage.rectTransform.sizeDelta = new Vector2(rawImage.rectTransform.sizeDelta.x + 60, rawImage.rectTransform.sizeDelta.y);
             }
             
             flag = false;
-}
+            Destroy(gameObject);
+        }
     }
 
+   
 }

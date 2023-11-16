@@ -8,7 +8,13 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using UnityEngine.Analytics;
 using System;
+using UnityEditor.MemoryProfiler;
+using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.EventSystems;
 
+/// <summary>
+/// 登录类，处理登录和注册功能，管理数据库连接等。
+/// </summary>
 public class Login : MonoBehaviour
 {
     // 登录账号与密码
@@ -28,12 +34,35 @@ public class Login : MonoBehaviour
     private int i = 2;
     // 音乐控制
     public AudioSource audioSource;
-    private bool isPlaying = false;
+    public AudioSource effectVolume;
+    private bool isPlaying = true;
+    // 数据库界面
+    public GameObject rankList;
+    private bool isData = false;
+    // 设置界面
+    public RawImage settingPage;
+    private bool isSetting = false;
+    // 事件系统
+    EventSystem system;
+    // 游戏模式选择界面
+    public RawImage gameModePage;
+    // 队名输入界面
+    public RawImage teamNamePage;
+    // 教程界面
+    public RawImage turorialPage;
 
+    /// <summary>
+    /// 在启用时执行，初始化登录界面和数据库连接。
+    /// </summary>
     void Start()
     {
         remind.gameObject.SetActive(false); // 提醒界面隐藏
         registerPage.gameObject.SetActive(false); // 注册界面隐藏
+        rankList.SetActive(false); // 数据库界面隐藏
+        settingPage.gameObject.SetActive(false); // 设置界面隐藏
+        gameModePage.gameObject.SetActive(false); // 游戏模式选择界面隐藏
+        teamNamePage.gameObject.SetActive(false); // 队名输入界面隐
+        turorialPage.gameObject.SetActive(false); // 教程页面隐藏
 
         // mysql连接
         sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
@@ -43,10 +72,28 @@ public class Login : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetMouseButtonDown(0))
+        {
+            effectVolume.Play();
+        }
+        print(username.text);
+        print(password.text);
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    if (system.currentSelectedGameObject == username.gameObject)
+        //    {
+        //        GameObject next = password.gameObject;
+        //        system.SetSelectedGameObject(next);
+        //        ////倒序
+        //        //GameObject last = LastInput(system.currentSelectedGameObject);
+        //        //system.SetSelectedGameObject(last);
+        //    }
+        //}
     }
 
-    // 登录功能实现
+    /// <summary>
+    /// 实现用户登录功能，验证用户名和密码。
+    /// </summary>
     public void LoginButton()
     {
         //// 判断用户名和密码是否正确
@@ -71,7 +118,42 @@ public class Login : MonoBehaviour
         { 
             conn.Open();
             Debug.Log("connect successful");
-           
+
+            //// 执行赋值PROCESS权限的SQL语句
+            //string grantQuery = "GRANT PROCESS ON *.* TO 'urrruruu'@'%';";
+
+            //using (MySqlCommand command = new MySqlCommand(grantQuery, conn))
+            //{
+            //    // 执行赋值操作
+            //    int rowsAffected = command.ExecuteNonQuery();
+
+            //    Console.WriteLine($"Privileges granted. Rows affected: {rowsAffected}");
+            //}
+            //Debug.Log("赋值权限完成");
+
+            //// 执行刷新权限
+            //string privilegesQuery = "FLUSH PRIVILEGES;";
+
+            //using (MySqlCommand command = new MySqlCommand(privilegesQuery, conn))
+            //{
+            //    // 执行刷新操作
+            //    int rowsAffected = command.ExecuteNonQuery();
+
+            //    Console.WriteLine($"Privileges refreshed. Rows affected: {rowsAffected}");
+            //}
+            //Debug.Log("刷新权限完成");
+
+            //// 执行刷新数据库的SQL语句
+            //string flushQuery = "FLUSH TABLES;";
+
+            //using (MySqlCommand command = new MySqlCommand(flushQuery, conn))
+            //{
+            //    // 执行刷新操作
+            //    int rowsAffected = command.ExecuteNonQuery();
+
+            //    Console.WriteLine($"Database refreshed. Rows affected: {rowsAffected}");
+            //}
+            //Debug.Log("刷新tables成功");
 
             //sql语句
             string sqlQuary = "SELECT * FROM player;";
@@ -82,6 +164,8 @@ public class Login : MonoBehaviour
 
             MySqlDataReader reader = comd.ExecuteReader();
 
+            int flag = 0;
+
             while (reader.Read())
             {
                 //通过reader获得数据库信息
@@ -90,18 +174,26 @@ public class Login : MonoBehaviour
                 if (reader.GetString("name") == username.text && reader.GetString("password") == password.text)
                 {
                     Debug.Log("登录成功");
-                    // 跳转到游戏场景
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+                    flag = 1;
+                    break;
                 }
                 else
                 {
                     Debug.Log("失败");
-                    // 让remindText的文本内容为"用户名或密码错误"
-                    tip.text = "用户名或密码错误";
-                    i = 2;
-                    // 使名为"remind"的rawImage组件出现
-                    remind.gameObject.SetActive(true);
                 }
+            }
+            if(flag == 1)
+            {
+                // 跳转到游戏模式选择界面
+                gameModePage.gameObject.SetActive(true);
+            }
+            else
+            {
+                // 让remindText的文本内容为"用户名或密码错误"
+                tip.text = "用户名或密码错误";
+                i = 2;
+                // 使名为"remind"的rawImage组件出现
+                remind.gameObject.SetActive(true);
             }
             reader.Close();
         }
@@ -115,9 +207,12 @@ public class Login : MonoBehaviour
         }
     }
 
-    // 返回界面
+    /// <summary>
+    /// 控制返回界面逻辑，隐藏提醒或注册界面。
+    /// </summary>
     public void BackButton()
     {
+        turorialPage.gameObject.SetActive(false);
         // 使名为"remind"的rawImage组件不可见
         if (i == 2)
         {
@@ -129,14 +224,18 @@ public class Login : MonoBehaviour
         }
         i = 2;
     }
-    // 跳转注册界面
+    /// <summary>
+    /// 控制跳转至注册界面逻辑。
+    /// </summary>
     public void RegisterButton()
     {
         // 使注册界面出现
         registerPage.gameObject.SetActive(true);
     }
 
-    // 注册功能实现
+    /// <summary>
+    /// 实现注册功能，验证用户输入并向数据库插入新用户信息。
+    /// </summary>
     public void RegisterPage_registerButton()
     {
         // 注册功能实现
@@ -144,6 +243,17 @@ public class Login : MonoBehaviour
         {
             conn.Open();
             Debug.Log("connect successful");
+
+            //// 执行刷新数据库的SQL语句
+            //string flushQuery = "FLUSH TABLES;";
+
+            //using (MySqlCommand command = new MySqlCommand(flushQuery, conn))
+            //{
+            //    // 执行刷新操作
+            //    int rowsAffected = command.ExecuteNonQuery();
+
+            //    Console.WriteLine($"Database refreshed. Rows affected: {rowsAffected}");
+            //}
 
             //sql语句
             string sqlQuary = "select * from player";
@@ -214,7 +324,9 @@ public class Login : MonoBehaviour
         remind.gameObject.SetActive(true);
     }
 
-    // 音乐播放控制
+    /// <summary>
+    /// 控制音乐播放状态。
+    /// </summary>
     public void MusicControl()
     {
         // 切换播放状态
@@ -229,5 +341,58 @@ public class Login : MonoBehaviour
 
         // 更新播放状态
         isPlaying = !isPlaying;
+    }
+
+    /// <summary>
+    /// 控制数据库界面显示状态。
+    /// </summary>
+    public void RankListControl()
+    {
+        // 更新排行榜展示状态
+        isData = !isData;
+
+        // 切换排行榜展示状态
+        rankList.SetActive(isData);
+    }
+
+    /// <summary>
+    /// 控制设置界面显示状态。
+    /// </summary>
+    public void SettingControl()
+    {
+        // 更新设置界面展示状态
+        isSetting = !isSetting;
+
+        // 切换设置界面展示状态
+        settingPage.gameObject.SetActive(isSetting);
+    }
+
+    /// <summary>
+    /// 控制游戏模式跳转至队名输入界面。
+    /// </summary>
+    public void GameModeToTeamName()
+    {
+        // 使游戏模式选择界面不可见
+        gameModePage.gameObject.SetActive(false);
+        // 使队名输入界面可见
+        teamNamePage.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 控制队名输入界面跳转至游戏场景。
+    /// </summary>
+    public void TeamNameToGame()
+    {
+        // 使队名输入界面不可见
+        teamNamePage.gameObject.SetActive(false);
+        // 跳转到游戏场景
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+    }
+
+    // 以下为教程界面跳转逻辑
+    public void TutorialToGame()
+    {
+        // 使教程界面可见
+        turorialPage.gameObject.SetActive(true);
     }
 }
