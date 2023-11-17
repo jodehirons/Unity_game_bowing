@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -36,10 +38,11 @@ public class player : MonoBehaviour
     public TextMeshProUGUI SkillMouse;
     public TextMeshProUGUI DiedText;
     public TextMeshProUGUI ScoreText;
-
-
-    void Start()
+    public GameObject gameoverPage;
+    public TMP_Text score;
+    void OnEnable()
     {
+        gameoverPage.SetActive(false);
         playerRB = GetComponent<Rigidbody2D>();
         playerTransform = GetComponent<Transform>();
         playerSpeed = 1f;
@@ -58,6 +61,10 @@ public class player : MonoBehaviour
     {
         if(DiedText.text == "0")
         {
+            Time.timeScale = 0;
+            gameoverPage.SetActive(true);
+            PlayerPrefs.SetInt("score", (int)controlScore);
+            score.text = Mathf.Floor(controlScore).ToString();
             //结束
         }
         controlMove += Time.deltaTime;
@@ -103,6 +110,12 @@ public class player : MonoBehaviour
             controlRecover = 0.01f;
             shipOut = Vector3.zero;
         }
+    }
+
+    public void gameAgain()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

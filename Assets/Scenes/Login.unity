@@ -1250,7 +1250,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -283}
-  m_SizeDelta: {x: 137.7859, y: 63.67}
+  m_SizeDelta: {x: 280.3004, y: 63.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &153774284
 MonoBehaviour:
@@ -1272,10 +1272,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u60A8"
+  m_text: "\u60A8\u7684\u6700\u9AD8\u5206"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
-  m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a538862e009ffea41b18552ee14cc34f, type: 2}
+  m_sharedMaterial: {fileID: 2966306509405367820, guid: a538862e009ffea41b18552ee14cc34f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4067,6 +4067,7 @@ MonoBehaviour:
   settingPage: {fileID: 1710174400}
   gameModePage: {fileID: 1487650959}
   teamNamePage: {fileID: 1659038941}
+  teamName: {fileID: 275585212}
   turorialPage: {fileID: 1520526236}
 --- !u!1 &464974615
 GameObject:
@@ -9455,8 +9456,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
-  m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a538862e009ffea41b18552ee14cc34f, type: 2}
+  m_sharedMaterial: {fileID: 2966306509405367820, guid: a538862e009ffea41b18552ee14cc34f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13151,7 +13152,6 @@ MonoBehaviour:
   - {fileID: 220688284}
   - {fileID: 1258626784}
   - {fileID: 2144075130}
-  username: {fileID: 107599777}
   personRank: {fileID: 709372295}
 --- !u!1 &1812312926
 GameObject:
