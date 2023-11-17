@@ -311,6 +311,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89462170}
   m_CullTransparentMesh: 1
+--- !u!1001 &97912803
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 332360688}
+    m_Modifications:
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5128476
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4788411
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0593885
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495137684377727324, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_Name
+      value: player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495137684377727324, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+--- !u!4 &97912804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 46892882204381606, guid: 87a1cc30f4fedf741b14accb2d4e12f5, type: 3}
+  m_PrefabInstance: {fileID: 97912803}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &98938564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,6 +1633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315204722}
   - component: {fileID: 315204723}
+  - component: {fileID: 315204724}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -1630,7 +1697,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 879ae53332466e0499ccf19d09a68030, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 90e7859d7c0aad340883ee05a6f2c556, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1641,6 +1708,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &315204724
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315204721}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 393f8524134614847be2f78f834fdb11, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &323570079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,6 +1965,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1163912810}
+  - {fileID: 97912804}
+  - {fileID: 1869320056}
   - {fileID: 315204722}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2166,8 +2256,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3628,8 +3723,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u642D\u6863\u8DEF\u4EBA"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4030,8 +4130,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u642D\u6863ID\uFF1A"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6841,8 +6946,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u4E0A\u4F20\u6210\u7EE9"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7676,8 +7786,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6CA1\u8FD9\u4EBA"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
   m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7810,8 +7925,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u884C"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8774,8 +8894,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u642D\u6863\u7684\u8D26\u53F7\u540D"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9230,8 +9355,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F69\u7B14\uFF0C\u4F60\u4EEC\u5BC4\u4E86\n\u6700\u7EC8\u83B7\u5F97\u7684\u79EF\u5206\u662F\uFF1A"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11035,8 +11165,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11843,6 +11978,72 @@ Transform:
   - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1869320055
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 332360688}
+    m_Modifications:
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5963647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4564046
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0593885
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647744934736389669, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_Name
+      value: player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647744934736389669, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+--- !u!4 &1869320056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1856789160429002968, guid: 9a0e993afdf9e824ea429b8a34fcf170, type: 3}
+  m_PrefabInstance: {fileID: 1869320055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1901292545
 GameObject:
   m_ObjectHideFlags: 0
@@ -11902,8 +12103,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u518D\u5F00\u4E00\u628A"
   m_isRightToLeft: 0
+<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
   m_sharedMaterial: {fileID: -6441134066315916172, guid: 73db328877584cb4b8619e4194ed0d6b, type: 2}
+=======
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+>>>>>>> parent of b170f09 (Revert "Merge pull request #34 from yanguangcan/develop")
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
