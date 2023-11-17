@@ -8,7 +8,6 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using UnityEngine.Analytics;
 using System;
-using UnityEditor.MemoryProfiler;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.EventSystems;
 
