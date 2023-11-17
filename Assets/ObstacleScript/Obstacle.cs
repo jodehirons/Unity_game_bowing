@@ -44,16 +44,18 @@ public class Obstacle : MonoBehaviour
     /// 实现障碍物闪烁并最终消失的协程逻辑。
     /// </summary>
     /// <returns>IEnumerator 类型的协程</returns>
-    IEnumerator BlinkAndDisappear()
+    public IEnumerator BlinkAndDisappear()
     {
         for (int i = 0; i < 2; i++)
         {
             // 关闭渲染器，实现闪烁效果
             rend.enabled = false;
+            Debug.Log("Renderer disabled");
             yield return new WaitForSeconds(0.1f);
 
             // 开启渲染器，还原可见状态
             rend.enabled = true;
+            Debug.Log("Renderer enabled");
             yield return new WaitForSeconds(0.1f);
         }
 

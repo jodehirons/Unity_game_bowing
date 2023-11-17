@@ -161,12 +161,14 @@ public class Login : MonoBehaviour
             while (reader.Read())
             {
                 //通过reader获得数据库信息
-                Debug.Log(reader.GetString("name"));
-                Debug.Log(reader.GetString("password"));
+                //Debug.Log(reader.GetString("name"));
+                //Debug.Log(reader.GetString("password"));
                 if (reader.GetString("name") == username.text && reader.GetString("password") == password.text)
                 {
                     Debug.Log("登录成功");
+                    reader.Close();
                     flag = 1;
+
                     break;
                 }
                 else
