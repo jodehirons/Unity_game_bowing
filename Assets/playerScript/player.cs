@@ -183,6 +183,7 @@ public class player : MonoBehaviour
             goldAudio.Play();
             controlScore+= 10;
         }
+<<<<<<< HEAD
         if(collision.gameObject.tag == "dongdong")
         {
             //Destroy(collision.gameObject);
@@ -193,6 +194,9 @@ public class player : MonoBehaviour
             //Destroy(collision.gameObject);
             controlKe = 0.01f;
         }
+=======
+
+>>>>>>> upstream/develop
     }
 
     

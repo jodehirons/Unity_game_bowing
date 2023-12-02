@@ -9,8 +9,11 @@ TagManager:
   - GunShoot
   - portal
   - GoldCoin
+<<<<<<< HEAD
   - dongdong
   - keke
+=======
+>>>>>>> upstream/develop
   layers:
   - Default
   - TransparentFX
