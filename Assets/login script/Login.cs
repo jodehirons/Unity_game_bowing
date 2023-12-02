@@ -1,15 +1,14 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using MySql.Data.MySqlClient;
-<<<<<<< HEAD
-=======
 using System.Data;
 using UnityEngine.Analytics;
 using System;
 using UnityEngine.Rendering.VirtualTexturing;
->>>>>>> upstream/develop
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -55,7 +54,7 @@ public class Login : MonoBehaviour
     /// <summary>
     /// 在启用时执行，初始化登录界面和数据库连接。
     /// </summary>
-    void Start()
+    void OnEnable()
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("username", username.text);
@@ -79,17 +78,6 @@ public class Login : MonoBehaviour
         {
             effectVolume.Play();
         }
-        //if (Input.GetKeyDown(KeyCode.Tab))
-        //{
-        //    if (system.currentSelectedGameObject == username.gameObject)
-        //    {
-        //        GameObject next = password.gameObject;
-        //        system.SetSelectedGameObject(next);
-        //        ////倒序
-        //        //GameObject last = LastInput(system.currentSelectedGameObject);
-        //        //system.SetSelectedGameObject(last);
-        //    }
-        //}
     }
 
     /// <summary>
@@ -321,6 +309,10 @@ public class Login : MonoBehaviour
     /// </summary>
     public void TeamNameToGame()
     {
+        if(teamName.text == "")
+        {
+            teamName.text = "队伍" + UnityEngine.Random.Range(0, 1000);
+        }
         // 使队名输入界面不可见
         teamNamePage.gameObject.SetActive(false);
         // 跳转到游戏场景

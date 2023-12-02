@@ -44,15 +44,12 @@ public class RankScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
             while (reader.Read())
             {
-                string a = username.ToString();
+                string a = PlayerPrefs.GetString("username");
                 string b = reader.GetString("name").ToString();
                 bool str = true;
-                for (int p = 0; p < Mathf.Min(a.Length, b.Length); p++)
+                if (a != b)
                 {
-                    if (a[p] != b[p])
-                    {
-                        str = false;
-                    }
+                    str = false;
                 }
                 if(i< 10)
                 {
@@ -69,7 +66,7 @@ public class RankScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                         infos[i].r.color = Color.red;
                     }
                 }
-                if (str && username!="")
+                if (str && username!="" && sign != 1)
                 {
                     personRank.n.text = reader.GetString("team_name");
                     personRank.s.text = reader.GetString("highest_score");
