@@ -17,7 +17,7 @@ public class CameraSystem : MonoBehaviour
         {
             if(playerTarget.position != mapCamera.position)
             {
-                Vector3 tempPosition = new Vector3(mapCamera.position.x, playerTarget.position.y + 5f, mapCamera.position.z);
+                Vector3 tempPosition = new Vector3(mapCamera.position.x, playerTarget.position.y + 3.5f, mapCamera.position.z);
                 mapCamera.position = Vector3.Lerp(mapCamera.position, tempPosition, moveTime * Time.deltaTime);
             }
         }        

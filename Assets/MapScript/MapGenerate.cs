@@ -15,16 +15,19 @@ public class MapGenerate : MonoBehaviour
     public GameObject[] Bloods;
     public AudioSource BackMusic;
     public GameObject Valley;
+    public GameObject Background;
     [Header("控制属性")]
     public float Y_Position = 20.5f;
     public int controlValley;
+    public float Y_Back;
 
     // Start is called before the first frame update
     void Start()
     {
         map_Init();
         BackMusic = GetComponent<AudioSource>();
-        BackMusic.Play();   
+        BackMusic.Play();
+        Y_Back = 5;
     }
 
     // Update is called once per frame
@@ -36,17 +39,54 @@ public class MapGenerate : MonoBehaviour
   
     void generateMap()
     {
+        if(playerTransform.position.y + 20 > Y_Back)
+        {
+            Vector3 a = new Vector3(0, Y_Back, 0);
+            Instantiate(Background, a, Quaternion.identity);
+            Y_Back += 10;
+        }
         if(playerTransform.position.y + 18 > Y_Position)
         {
             controlValley++;
-            if (controlValley % 3 == 0)
+            if (controlValley % 3 == 1)
             {
                 Vector3 a = new Vector3(0, Y_Position + 9, 0);
                 Instantiate(Valley, a, Quaternion.identity);
                 generateObject(Y_Position, 1);
             }
+            else if(controlValley % 5 == 2)
+            {
+                float now_Y = Y_Position + 10;
+                for(float i = -6.5f; i <= 6.5f; i += 0.5f)
+                {
+                    if(i == 3)
+                    {
+                        Vector3 a = new Vector3(i+1f, now_Y, 0);
+                        i += 1.5f;
+                        Instantiate(Bloods[4], a, Quaternion.identity);
+                    }
+                    else if(i == -3)
+                    {
+                        Vector3 a = new Vector3(i + 1f, now_Y, 0);
+                        i += 1.5f;
+                        Instantiate(Bloods[5], a, Quaternion.identity);
+                    }
+                    else
+                    {
+                        Obstacles[6].active = true;
+                        Vector3 a = new Vector3(i,now_Y,0);
+                        Vector3 b = new Vector3(i, now_Y+0.5f, 0);
+                        Vector3 c = new Vector3(i, now_Y-0.5f, 0);
+                        Instantiate(Obstacles[6], a, Quaternion.identity);
+                        Instantiate(Obstacles[6], b, Quaternion.identity);
+                        Instantiate(Obstacles[6], c, Quaternion.identity);
+                    }
+                }
+
+                generateObject(Y_Position, 2);
+            }
             else generateObject(Y_Position, 0);
-            for(float i = 0f; i < 18; i++)
+            for (float i = 0f; i < 18; i++)
             {
                 Vector3 p_Left = new Vector3(-8.5f, Y_Position, 0);
                 Vector3 p_Right = new Vector3(8.5f, Y_Position, 0);
@@ -66,10 +106,13 @@ public class MapGenerate : MonoBehaviour
     void generateObject(float Y, float gg)
     {
         int flag = 0;
-        for (float i = Y + 1, k = 0; i < Y + 18; i += 1.5f, flag++)
+        for (float i = Y + 1, k = 0; i < Y + 19; i += 2f, flag++)
         {
-            if(gg == 1 && i > Y + 7) i += 4.5f;
-            
+            if ((gg == 2 || gg == 1) && i > Y + 7)
+            {
+                i += 4f;
+                gg = 0;
+            }
             float[] arr = {-6f,-4.5f, -3f, -1.5f, 0, 1.5f, 3f, 4.5f, 6f};
             bool[] index = new bool[9];
             int mem = 3;
@@ -158,7 +201,7 @@ public class MapGenerate : MonoBehaviour
     void generateBlood(float x, float y)
     {
         Vector3 a = new Vector3(x, y, 0);
-        int indexa = Random.Range(0, 3);
+        int indexa = Random.Range(0, 100)%4;
         Bloods[indexa].active = true;
         Instantiate(Bloods[indexa], a, Quaternion.identity);
     }

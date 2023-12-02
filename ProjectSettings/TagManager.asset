@@ -8,6 +8,9 @@ TagManager:
   - Blood
   - GunShoot
   - portal
+  - GoldCoin
+  - dongdong
+  - keke
   layers:
   - Default
   - TransparentFX

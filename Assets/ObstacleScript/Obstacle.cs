@@ -10,10 +10,19 @@ public class Obstacle : MonoBehaviour
     private Renderer rend;
     public RawImage rawImage;
     public bool flag = true;
+    public Transform player;
 
     private void Start()
     {
         rend = GetComponent<Renderer>();
+    }
+
+    void Update()
+    {
+        //if (transform.position.y + 20 < player.position.y)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
