@@ -12,6 +12,9 @@ public class Gun : MonoBehaviour
     public GameObject gunShoot;
     public float controlShoot;
     public TextMeshProUGUI SkillShoot;
+    public Animator shootAni;
+    public Transform playerRight;
+    public bool controlCreate;
 
     void Start()
     {
@@ -37,12 +40,25 @@ public class Gun : MonoBehaviour
         if(t != 0 && controlShoot == 0)
         {
             controlShoot = 0.01f;
-            Vector3 a = new Vector3(transform.position.x + 0.01f, transform.position.y + 0.01f, 0);
-            Instantiate(gunShoot, a, Quaternion.Euler(0, 0, rotation));
+            playerRight.rotation = Quaternion.Euler(0, 0, 0);
+            shootAni.SetBool("p2", true);
+            controlCreate = true;
         }
         else if(controlShoot != 0)
         {
             controlShoot += Time.deltaTime;
+            if(controlShoot > 0.2f && controlCreate)
+            {
+                controlCreate = false;
+                Vector3 a = new Vector3(transform.position.x + 0.01f, transform.position.y + 0.01f, 0);
+                Instantiate(gunShoot, a, Quaternion.Euler(0, 0, rotation));
+                
+            }
+            if(controlShoot > 1)
+            {
+                shootAni.SetBool("p2", false);
+                playerRight.rotation = Quaternion.Euler(0, 0, -130);
+            }
             float temp = Mathf.Ceil(10f - controlShoot);
             SkillShoot.text = "射击：" + temp.ToString();
             if(controlShoot >= 10f)

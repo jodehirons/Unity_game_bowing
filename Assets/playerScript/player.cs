@@ -26,6 +26,8 @@ public class player : MonoBehaviour
     public float controlMove;
     public float controlScore;
     public float abovePositon;
+    public float controlDong;
+    public float controlKe;
     [Header("位置相关")]
     public Vector3 shipOut;
     [Header("其他相关")]
@@ -91,6 +93,35 @@ public class player : MonoBehaviour
             playerMove();
             AddSpeed();
             getMouse();
+            if(controlDong != 0)
+            {
+                if(controlDong == 0.01f)
+                {
+                    rotateSpeed *= 3;
+                    playerSpeed *= 3;
+                }
+                playerRB.velocity = new Vector3(playerRB.velocity.x, playerSpeed);
+                playerCollider.isTrigger = true;
+                controlDong += Time.deltaTime;
+                if(controlDong> 10)
+                {
+                    controlDong= 0;
+                    rotateSpeed /= 3;
+                    playerSpeed /= 3;
+                    playerRB.velocity = new Vector3(0, playerSpeed);
+                    playerCollider.isTrigger = false;
+                }
+            }
+            else if(controlKe!= 0)
+            {
+                if(controlKe == 0.01f) playerTransform.localScale /= 1.5f;
+                controlKe += Time.deltaTime;
+                if(controlKe > 15)
+                {
+                    controlKe= 0;
+                    playerTransform.localScale *= 1.5f;
+                }
+            }
         }
         else
         {
@@ -152,7 +183,20 @@ public class player : MonoBehaviour
             goldAudio.Play();
             controlScore+= 10;
         }
+<<<<<<< HEAD
+        if(collision.gameObject.tag == "dongdong")
+        {
+            //Destroy(collision.gameObject);
+            controlDong = 0.01f;
+        }
+        if(collision.gameObject.tag == "keke")
+        {
+            //Destroy(collision.gameObject);
+            controlKe = 0.01f;
+        }
+=======
 
+>>>>>>> upstream/develop
     }
 
     
@@ -243,9 +287,12 @@ public class player : MonoBehaviour
             // 计算船的速度和移动方向
             Vector2 direction = new Vector2(Mathf.Cos((rotation+90) * Mathf.Deg2Rad), Mathf.Sin((rotation + 90) * Mathf.Deg2Rad));
 
-            if(stopThere == 0)
+           
+            if (stopThere == 0)
                 playerRB.velocity = direction * rotateSpeed;
             else playerRB.velocity = direction * rotateSpeed * startThere;
+            
+            
         }
         
         
