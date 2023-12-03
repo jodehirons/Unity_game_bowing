@@ -36,7 +36,15 @@ public class UIinGame : MonoBehaviour
 
     public void rankShow()
     {
-        ranklist.SetActive(true);
+        if(ranklist.activeSelf == true)
+        {
+            ranklist.SetActive(false);
+            return;
+        }
+        else
+        {
+            ranklist.SetActive(true);
+        }
     }
 
 
@@ -71,23 +79,29 @@ public class UIinGame : MonoBehaviour
                     Debug.Log("Player1已使用过该队名，且也是与路人");
                     // 比较分数
                     int max_score = reader.GetInt32("highest_score");
-                    if(max_score < PlayerPrefs.GetInt("score"))
+                    reader.Close();
+                    if (max_score < PlayerPrefs.GetInt("score"))
                     {
                         // 更新分数
-                        reader.Close();
                         sql = "update teams set highest_score = " + PlayerPrefs.GetInt("score") + " where team_name = '" + PlayerPrefs.GetString("teamname") + "';";
                         cmd = new MySqlCommand(sql, conn);
                         cmd.ExecuteNonQuery();
                         Debug.Log("更新分数成功");
                         reminder.SetActive(true);
                         reminderText.text = "上传成功";
+                        teamamatePage.SetActive(false);
                     }
                     else
                     {
                         Debug.Log("分数未更新");
                         reminder.SetActive(true);
                         reminderText.text = "分不如之前";
+                        teamamatePage.SetActive(false);
                     }
+                    // 插入新纪录到rank_record
+                    sql = "insert into rank_record (player_id,score,upload_time,team_id) values (" + PlayerPrefs.GetInt("player_id") + ", " + PlayerPrefs.GetInt("score") + ", '" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " + PlayerPrefs.GetInt("team_id") + ");";
+                    cmd = new MySqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
                 }
                 else
                 {
@@ -104,8 +118,20 @@ public class UIinGame : MonoBehaviour
                 sql = "insert into teams (team_name, player1_id, player2_id, highest_score) values ('" + PlayerPrefs.GetString("teamname") + "', " + PlayerPrefs.GetInt("player_id") + ", null, " + PlayerPrefs.GetInt("score") + ");";
                 cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
+                // 获取team_id
+                sql = "select * from teams where team_name = '" + PlayerPrefs.GetString("teamname") + "' and player1_id = " + PlayerPrefs.GetInt("player_id")  + ";";
+                cmd = new MySqlCommand(sql, conn);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                PlayerPrefs.SetInt("team_id", reader.GetInt32("team_id"));
+                reader.Close();
+                // 插入新纪录到rank_record
+                sql = "insert into rank_record (player_id,score,upload_time,team_id) values (" + PlayerPrefs.GetInt("player_id") + ", " + PlayerPrefs.GetInt("score") + ", '" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " + PlayerPrefs.GetInt("team_id") + ");";
+                cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
                 reminder.SetActive(true);
                 reminderText.text = "上传成功";
+                teamamatePage.SetActive(false);
             }
         }
         catch (MySqlException ex)
@@ -115,6 +141,7 @@ public class UIinGame : MonoBehaviour
         finally
        {
             conn.Close();
+            teamamatePage.SetActive(false);
        }
     }
 
@@ -160,16 +187,21 @@ public class UIinGame : MonoBehaviour
                         Debug.Log("Player1已与player2组队过");
                         // 比较分数
                         int max_score = reader.GetInt32("highest_score");
+                        reader.Close();
+                        // 插入新纪录到rank_record
+                        sql = "insert into rank_record (player_id,score,upload_time,team_id) values (" + PlayerPrefs.GetInt("player_id") + ", " + PlayerPrefs.GetInt("score") + ", '" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " + PlayerPrefs.GetInt("team_id") + ");";
+                        cmd = new MySqlCommand(sql, conn);
+                        cmd.ExecuteNonQuery();
                         if (max_score < PlayerPrefs.GetInt("score"))
                         {
                             // 更新分数
-                            reader.Close();
                             sql = "update teams set highest_score = " + PlayerPrefs.GetInt("score") + " where team_name = '" + PlayerPrefs.GetString("teamname") + "';";
                             cmd = new MySqlCommand(sql, conn);
                             cmd.ExecuteNonQuery();
                             Debug.Log("更新分数成功");
                             reminder.SetActive(true);
                             reminderText.text = "上传成功";
+                            teamamatePage.SetActive(false);
                             return;
                         }
                         else
@@ -177,6 +209,7 @@ public class UIinGame : MonoBehaviour
                             Debug.Log("分数未更新");
                             reminder.SetActive(true);
                             reminderText.text="分不如之前";
+                            teamamatePage.SetActive(false);
                             return; 
                         }
                     }
@@ -188,18 +221,30 @@ public class UIinGame : MonoBehaviour
                     }
                 }
                 // 与player2未玩过
-                // 插入新纪录
+                // 插入新纪录到teams
                 reader.Close();
                 sql = "insert into teams (team_name, player1_id, player2_id, highest_score) values ('" + PlayerPrefs.GetString("teamname") + "', " + PlayerPrefs.GetInt("player_id") + ", " + player2_id + ", " + PlayerPrefs.GetInt("score") + ");";
                 cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
+                // 获取team_id
+                sql = "select * from teams where team_name = '" + PlayerPrefs.GetString("teamname") + "' and player1_id = " + PlayerPrefs.GetInt("player_id") + " and player2_id = " + player2_id + ";";
+                cmd = new MySqlCommand(sql, conn);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                PlayerPrefs.SetInt("team_id", reader.GetInt32("team_id"));
+                reader.Close();
+                // 插入新纪录到rank_record
+                sql = "insert into rank_record (player_id,score,upload_time,team_id) values (" + PlayerPrefs.GetInt("player_id") + ", " + PlayerPrefs.GetInt("score") + ", '" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " + PlayerPrefs.GetInt("team_id") + ");";
+                cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
                 reminder.SetActive(true);
                 reminderText.text = "上传成功";
+                teamamatePage.SetActive(false);
             }
             else
             {
                 reminder.SetActive(true);
-                reminderText.text = "没这人";
+                reminderText.text = "莫有这人捏";
             }
         }
         catch (MySqlException ex)
@@ -209,6 +254,7 @@ public class UIinGame : MonoBehaviour
         finally
         {
             conn.Close();
+            teamamatePage.SetActive(false);
         }
     }
 }

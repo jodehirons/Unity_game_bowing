@@ -49,6 +49,7 @@ public class player : MonoBehaviour
     public Animator playerColl;
     void OnEnable()
     {
+        Time.timeScale = 1;
         gameoverPage.SetActive(false);
         playerRB = GetComponent<Rigidbody2D>();
         playerTransform = GetComponent<Transform>();
@@ -146,11 +147,26 @@ public class player : MonoBehaviour
             controlRecover = 0.01f;
             shipOut = Vector3.zero;
         }
+        // 键盘按p暂停
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                gameoverPage.SetActive(true);
+                PlayerPrefs.SetInt("score", (int)controlScore);
+                score.text = Mathf.Floor(controlScore).ToString();
+            }
+            else
+            {
+                Time.timeScale = 1;
+                gameoverPage.SetActive(false);
+            }
+        }
     }
 
     public void gameAgain()
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -199,32 +215,34 @@ public class player : MonoBehaviour
 
     void getMouse()
     {
-        Vector3 clickPosition = new Vector3();
-        if (Input.GetMouseButtonDown(0))
+        if(Time.timeScale !=0)
         {
-            clickPosition = Input.mousePosition;  // 获取鼠标点击位置的坐标  
-            clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);  // 如果需要，把鼠标屏幕坐标转换成世界坐标  
-            if (controlMouse == 0)
+            Vector3 clickPosition = new Vector3();
+            if (Input.GetMouseButtonDown(0))
             {
-                shipOut = clickPosition;
-                Debug.Log(shipOut);
-                controlMouse = 0.01f;
-                Instantiate(portal, new Vector3(shipOut.x, shipOut.y, 0), Quaternion.identity);
+                clickPosition = Input.mousePosition;  // 获取鼠标点击位置的坐标  
+                clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);  // 如果需要，把鼠标屏幕坐标转换成世界坐标  
+                if (controlMouse == 0)
+                {
+                    shipOut = clickPosition;
+                    Debug.Log(shipOut);
+                    controlMouse = 0.01f;
+                    Instantiate(portal, new Vector3(shipOut.x, shipOut.y, 0), Quaternion.identity);
+                }
+            }
+
+            if (controlMouse != 0)
+            {
+                controlMouse += Time.deltaTime;
+                float temp = Mathf.Ceil(10f - controlMouse);
+                SkillMouse.text = "鼠标：" + temp.ToString();
+                if (controlMouse >= 10f)
+                {
+                    SkillMouse.text = "鼠标：可用";
+                    controlMouse = 0;
+                }
             }
         }
-
-        if (controlMouse != 0)
-        {
-            controlMouse += Time.deltaTime;
-            float temp = Mathf.Ceil(10f - controlMouse);
-            SkillMouse.text = "鼠标：" + temp.ToString();
-            if (controlMouse >= 10f)
-            {
-                SkillMouse.text = "鼠标：可用";
-                controlMouse = 0;
-            }
-        }
-
     }
 
     void AddSpeed()
