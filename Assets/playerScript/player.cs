@@ -63,10 +63,10 @@ public class player : MonoBehaviour
         abovePositon = -7;
     }
 
-    
+
     void Update()
     {
-        if(DiedText.text == "0")
+        if (DiedText.text == "0")
         {
             Time.timeScale = 0;
             gameoverPage.SetActive(true);
@@ -75,14 +75,14 @@ public class player : MonoBehaviour
             //结束
         }
         controlMove += Time.deltaTime;
-        if(controlMove > 0.1f)
+        if (controlMove > 0.1f)
         {
-            if(playerTransform.position.y - abovePositon >= 10)
+            if (playerTransform.position.y - abovePositon >= 10)
             {
                 controlScore += playerTransform.position.y - abovePositon;
-                abovePositon= playerTransform.position.y;
+                abovePositon = playerTransform.position.y;
             }
-            
+
             ScoreText.text = "积分：" + Mathf.Floor(controlScore);
             controlMove = 0;
         }
@@ -93,9 +93,9 @@ public class player : MonoBehaviour
             playerMove();
             AddSpeed();
             getMouse();
-            if(controlDong != 0)
+            if (controlDong != 0)
             {
-                if(controlDong == 0.01f)
+                if (controlDong == 0.01f)
                 {
                     rotateSpeed *= 3;
                     playerSpeed *= 3;
@@ -103,22 +103,22 @@ public class player : MonoBehaviour
                 playerRB.velocity = new Vector3(playerRB.velocity.x, playerSpeed);
                 playerCollider.isTrigger = true;
                 controlDong += Time.deltaTime;
-                if(controlDong> 10)
+                if (controlDong > 10)
                 {
-                    controlDong= 0;
+                    controlDong = 0;
                     rotateSpeed /= 3;
                     playerSpeed /= 3;
                     playerRB.velocity = new Vector3(0, playerSpeed);
                     playerCollider.isTrigger = false;
                 }
             }
-            else if(controlKe!= 0)
+            else if (controlKe != 0)
             {
-                if(controlKe == 0.01f) playerTransform.localScale /= 1.5f;
+                if (controlKe == 0.01f) playerTransform.localScale /= 1.5f;
                 controlKe += Time.deltaTime;
-                if(controlKe > 15)
+                if (controlKe > 15)
                 {
-                    controlKe= 0;
+                    controlKe = 0;
                     playerTransform.localScale *= 1.5f;
                 }
             }
@@ -133,14 +133,14 @@ public class player : MonoBehaviour
         {
             playerRB.velocity = new Vector2(0, playerSpeed);
             controlRecover += Time.deltaTime;
-            if(controlRecover > 1)
+            if (controlRecover > 1)
             {
                 playerCollider.isTrigger = false;
-                controlRecover= 0;
+                controlRecover = 0;
             }
         }
-        
-        if(shipOut.y != 0 && playerTransform.position.y >= shipOut.y-0.1f)
+
+        if (shipOut.y != 0 && playerTransform.position.y >= shipOut.y - 0.1f)
         {
             controlCollider = 0;
             controlRecover = 0.01f;
@@ -171,36 +171,32 @@ public class player : MonoBehaviour
         }
         if (collision.gameObject.tag == "portal")
         {
-            if(shipOut.y != 0)
+            if (shipOut.y != 0)
             {
                 controlCollider = 1f;
-          
+
             }
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.tag == "GoldCoin")
+        if (collision.gameObject.tag == "GoldCoin")
         {
             goldAudio.Play();
-            controlScore+= 10;
+            controlScore += 10;
         }
-<<<<<<< HEAD
-        if(collision.gameObject.tag == "dongdong")
+        if (collision.gameObject.tag == "dongdong")
         {
             //Destroy(collision.gameObject);
             controlDong = 0.01f;
         }
-        if(collision.gameObject.tag == "keke")
+        if (collision.gameObject.tag == "keke")
         {
             //Destroy(collision.gameObject);
             controlKe = 0.01f;
         }
-=======
-
->>>>>>> upstream/develop
     }
 
-    
-    
+
+
     void getMouse()
     {
         Vector3 clickPosition = new Vector3();
@@ -216,24 +212,24 @@ public class player : MonoBehaviour
                 Instantiate(portal, new Vector3(shipOut.x, shipOut.y, 0), Quaternion.identity);
             }
         }
-        
+
         if (controlMouse != 0)
         {
             controlMouse += Time.deltaTime;
             float temp = Mathf.Ceil(10f - controlMouse);
-            SkillMouse.text = "鼠标："+ temp.ToString();
+            SkillMouse.text = "鼠标：" + temp.ToString();
             if (controlMouse >= 10f)
             {
                 SkillMouse.text = "鼠标：可用";
                 controlMouse = 0;
             }
         }
-        
+
     }
 
     void AddSpeed()
     {
-        if(playerTransform.position.y > Y_Position + 20)
+        if (playerTransform.position.y > Y_Position + 20)
         {
             playerSpeed += 0.05f;
             Y_Position = playerTransform.position.y;
@@ -241,26 +237,26 @@ public class player : MonoBehaviour
         }
     }
 
-  
+
 
     void playerMove()
     {
-        
+
         float h1 = Input.GetAxisRaw("HorizontalAB");
         float h2 = Input.GetAxisRaw("Horizontal");
         float horizontal = 0;
         float controlChange = 0.005f;
         if (h1 < 0) horizontal -= controlChange;
-        else if(h1 > 0) horizontal += controlChange;
+        else if (h1 > 0) horizontal += controlChange;
         if (h2 < 0) horizontal -= controlChange;
-        else if(h2 > 0) horizontal += controlChange;
+        else if (h2 > 0) horizontal += controlChange;
 
         if (h1 != 0) playerLeft.SetBool("p1", true);
         else playerLeft.SetBool("p1", false);
         if (h2 != 0) playerRight.SetBool("p1", true);
         else playerRight.SetBool("p1", false);
 
-        if(h1 != 0 || h2 != 0)
+        if (h1 != 0 || h2 != 0)
         {
             boatingAudio.Play();
         }
@@ -269,59 +265,59 @@ public class player : MonoBehaviour
         if (controlTime < 0.02f) return;
         controlTime = 0;
 
-        if (horizontal != 0f || rotation != 0) 
+        if (horizontal != 0f || rotation != 0)
         {
-            
+
             // 计算船的旋转角度
             rotation = -horizontal * 90 + aboveRotation;
-            
-            if(rotation < -70)
+
+            if (rotation < -70)
             {
                 rotation = -70;
             }
-            else if(rotation > 70)
+            else if (rotation > 70)
             {
                 rotation = 70;
             }
             aboveRotation = rotation;
             // 计算船的速度和移动方向
-            Vector2 direction = new Vector2(Mathf.Cos((rotation+90) * Mathf.Deg2Rad), Mathf.Sin((rotation + 90) * Mathf.Deg2Rad));
+            Vector2 direction = new Vector2(Mathf.Cos((rotation + 90) * Mathf.Deg2Rad), Mathf.Sin((rotation + 90) * Mathf.Deg2Rad));
 
-           
+
             if (stopThere == 0)
                 playerRB.velocity = direction * rotateSpeed;
             else playerRB.velocity = direction * rotateSpeed * startThere;
-            
-            
+
+
         }
-        
-        
+
+
     }
     private void FixedUpdate()
     {
-        
+
         // 设置船的旋转角度
         playerTransform.rotation = Quaternion.Euler(0, 0, rotation);
-        
+
 
     }
 
-    
+
 
     void adjustStay()
     {
-        if(stopThere != 0)
+        if (stopThere != 0)
         {
             startThere += Time.deltaTime;
-            playerRB.velocity = new Vector2(playerRB.velocity.x, startThere/2*playerSpeed);
-            if(startThere > 1)
+            playerRB.velocity = new Vector2(playerRB.velocity.x, startThere / 2 * playerSpeed);
+            if (startThere > 1)
             {
                 startThere = 0;
                 stopThere = 0;
                 playerColl.SetBool("p1", false);
             }
         }
-        
-        
+
+
     }
 }

@@ -1247,11 +1247,8 @@ MonoBehaviour:
   - {fileID: 1519953908}
   - {fileID: 1321324844}
   - {fileID: 243577988}
-<<<<<<< HEAD
   - {fileID: 703898799}
   - {fileID: 239682151}
-=======
->>>>>>> upstream/develop
   BackMusic: {fileID: 0}
   Valley: {fileID: 783274203}
   Background: {fileID: 981479570}
@@ -1354,7 +1351,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-<<<<<<< HEAD
 --- !u!1 &239682151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,8 +1512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e8b7dcd6e0a524587ed5659fbb2c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-=======
->>>>>>> upstream/develop
 --- !u!1 &243577988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,10 +1609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 992832455}
   flag: 1
-<<<<<<< HEAD
   player: {fileID: 332360688}
-=======
->>>>>>> upstream/develop
 --- !u!212 &243577992
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1794,11 +1785,7 @@ GameObject:
   - component: {fileID: 245981558}
   - component: {fileID: 245981557}
   m_Layer: 0
-<<<<<<< HEAD
   m_Name: playerRight
-=======
-  m_Name: playerLeft
->>>>>>> upstream/develop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1813,11 +1800,7 @@ Transform:
   m_GameObject: {fileID: 245981555}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.9063079, w: 0.42261827}
-<<<<<<< HEAD
   m_LocalPosition: {x: 0.34, y: -0.83, z: 0}
-=======
-  m_LocalPosition: {x: 0.25, y: -0.68, z: 0}
->>>>>>> upstream/develop
   m_LocalScale: {x: 0.196, y: 0.183, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2538,13 +2521,8 @@ MonoBehaviour:
   ScoreText: {fileID: 2120305283}
   gameoverPage: {fileID: 848195879}
   score: {fileID: 1795833952}
-<<<<<<< HEAD
   playerLeft: {fileID: 466191686}
   playerRight: {fileID: 245981557}
-=======
-  playerLeft: {fileID: 245981557}
-  playerRight: {fileID: 466191686}
->>>>>>> upstream/develop
   playerColl: {fileID: 315204724}
 --- !u!4 &332360688
 Transform:
@@ -2851,13 +2829,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3723,11 +3696,7 @@ GameObject:
   - component: {fileID: 466191686}
   - component: {fileID: 466191685}
   m_Layer: 0
-<<<<<<< HEAD
   m_Name: playerLeft
-=======
-  m_Name: playerRight
->>>>>>> upstream/develop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3741,22 +3710,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466191683}
   serializedVersion: 2
-<<<<<<< HEAD
   m_LocalRotation: {x: 0, y: 0, z: -0.9063079, w: 0.42261827}
   m_LocalPosition: {x: -0.44, y: 1.37, z: 0}
-=======
-  m_LocalRotation: {x: 0, y: 0, z: -0.9659258, w: 0.2588191}
-  m_LocalPosition: {x: -0.29, y: 0.51, z: 0}
->>>>>>> upstream/develop
   m_LocalScale: {x: -0.174566, y: 0.183265, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 332360688}
-<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -130}
-=======
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -150}
->>>>>>> upstream/develop
 --- !u!212 &466191685
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4439,13 +4399,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u642D\u6863\u8DEF\u4EBA"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4846,13 +4801,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u642D\u6863ID\uFF1A"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7617,13 +7567,8 @@ Transform:
   m_GameObject: {fileID: 981479570}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD
   m_LocalPosition: {x: -0.0419, y: -4.6678, z: 0}
   m_LocalScale: {x: 2.4118617, y: 15.386227, z: 1}
-=======
-  m_LocalPosition: {x: 0.0699, y: -4.8834, z: 0}
-  m_LocalScale: {x: 2.4362574, y: 14.775567, z: 1}
->>>>>>> upstream/develop
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1558682947}
@@ -7961,13 +7906,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u4E0A\u4F20\u6210\u7EE9"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8390,11 +8330,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-<<<<<<< HEAD
   m_SortingOrder: 2
-=======
-  m_SortingOrder: 1
->>>>>>> upstream/develop
   m_TargetDisplay: 0
 --- !u!224 &1147527805
 RectTransform:
@@ -8539,33 +8475,9 @@ MonoBehaviour:
   gunShoot: {fileID: 1990379978}
   controlShoot: 0
   SkillShoot: {fileID: 632485369}
-<<<<<<< HEAD
   shootAni: {fileID: 466191686}
   playerRight: {fileID: 466191684}
   controlCreate: 0
-=======
---- !u!95 &1163912813
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163912809}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
->>>>>>> upstream/develop
 --- !u!1 &1182720731
 GameObject:
   m_ObjectHideFlags: 0
@@ -8833,13 +8745,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6CA1\u8FD9\u4EBA"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8972,13 +8879,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u884C"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9942,13 +9844,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u642D\u6863\u7684\u8D26\u53F7\u540D"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10403,13 +10300,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F69\u7B14\uFF0C\u4F60\u4EEC\u5BC4\u4E86\n\u6700\u7EC8\u83B7\u5F97\u7684\u79EF\u5206\u662F\uFF1A"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12216,13 +12108,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13104,13 +12991,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u518D\u5F00\u4E00\u628A"
   m_isRightToLeft: 0
-<<<<<<< HEAD
   m_fontAsset: {fileID: 11400000, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
   m_sharedMaterial: {fileID: 7922295836211393514, guid: a28ce799875b45047ade2d73ede958e0, type: 2}
-=======
-  m_fontAsset: {fileID: 11400000, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
-  m_sharedMaterial: {fileID: -2131072849423413604, guid: 6f3499dbbc5d9fb4593ca096300098b4, type: 2}
->>>>>>> upstream/develop
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14857,9 +14739,6 @@ SceneRoots:
   - {fileID: 950781503}
   - {fileID: 1990379980}
   - {fileID: 243577994}
-<<<<<<< HEAD
   - {fileID: 703898804}
   - {fileID: 239682155}
   - {fileID: 1854670044}
-=======
->>>>>>> upstream/develop
