@@ -48,13 +48,13 @@ public class MapGenerate : MonoBehaviour
         if(playerTransform.position.y + 18 > Y_Position)
         {
             controlValley++;
-            if (controlValley % 3 == 1)
+            if (controlValley % 3 == 2)
             {
                 Vector3 a = new Vector3(0, Y_Position + 9, 0);
                 Instantiate(Valley, a, Quaternion.identity);
                 generateObject(Y_Position, 1);
             }
-            else if(controlValley % 5 == 2)
+            else if(controlValley % 5 == 1)
             {
                 float now_Y = Y_Position + 10;
                 for(float i = -6.5f; i <= 6.5f; i += 0.5f)
@@ -62,13 +62,15 @@ public class MapGenerate : MonoBehaviour
                     if(i == 3)
                     {
                         Vector3 a = new Vector3(i+1f, now_Y, 0);
-                        i += 1.5f;
+                        i += 2f;
+                        Bloods[4].active = true;
                         Instantiate(Bloods[4], a, Quaternion.identity);
                     }
                     else if(i == -3)
                     {
                         Vector3 a = new Vector3(i + 1f, now_Y, 0);
-                        i += 1.5f;
+                        i += 2f;
+                        Bloods[5].active = true;
                         Instantiate(Bloods[5], a, Quaternion.identity);
                     }
                     else
@@ -164,7 +166,7 @@ public class MapGenerate : MonoBehaviour
     void map_Init()
     {
         for (int i = 0; i < 7; i++) Obstacles[i].active = false;
-        for (int i = 0; i < 3; i++) Bloods[i].active = false;
+        for (int i = 0; i < 6; i++) Bloods[i].active = false;
 
         for (float i = -9.5f; i < 20.5f; i+=1)
         {

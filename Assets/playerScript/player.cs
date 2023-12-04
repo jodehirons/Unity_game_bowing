@@ -38,6 +38,7 @@ public class player : MonoBehaviour
     public AudioSource ObstacleAudio;
     public AudioSource boatingAudio;
     public AudioSource goldAudio;
+    public AudioSource[] myAudios;
     public CapsuleCollider2D playerCollider;
     public TextMeshProUGUI SkillMouse;
     public TextMeshProUGUI DiedText;
@@ -47,6 +48,7 @@ public class player : MonoBehaviour
     public Animator playerLeft;
     public Animator playerRight;
     public Animator playerColl;
+    public Transform PeopleLeft;
     void OnEnable()
     {
         Time.timeScale = 1;
@@ -56,9 +58,9 @@ public class player : MonoBehaviour
         playerSpeed = 1f;
         rotateSpeed = 1.5f;
         playerRB.velocity = new Vector2(playerRB.velocity.x, playerSpeed);
-        AudioSource[] arr = GetComponents<AudioSource>();
-        BloodAudiio = arr[0];
-        ObstacleAudio = arr[1];
+        myAudios = GetComponents<AudioSource>();
+        BloodAudiio = myAudios[0];
+        ObstacleAudio = myAudios[1];
         Y_Position = playerTransform.position.y;
         playerCollider = GetComponent<CapsuleCollider2D>();
         abovePositon = -7;
@@ -69,6 +71,7 @@ public class player : MonoBehaviour
     {
         if (DiedText.text == "0")
         {
+            ScoreText.text = "积分：" + Mathf.Floor(controlScore);
             Time.timeScale = 0;
             gameoverPage.SetActive(true);
             PlayerPrefs.SetInt("score", (int)controlScore);
@@ -96,31 +99,57 @@ public class player : MonoBehaviour
             getMouse();
             if (controlDong != 0)
             {
+                
                 if (controlDong == 0.01f)
                 {
-                    rotateSpeed *= 3;
-                    playerSpeed *= 3;
+                    PeopleLeft.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    playerLeft.SetBool("p3", true);
+                    rotateSpeed /= 1.5f;
+                    playerSpeed /= 1.5f;
+                    playerTransform.localScale *= 1.3f;
+                }
+                else if(controlDong > 2)
+                {
+                    playerLeft.SetBool("p3", false);
+                    PeopleLeft.rotation = Quaternion.Euler(0f, 0f, -130f);
                 }
                 playerRB.velocity = new Vector3(playerRB.velocity.x, playerSpeed);
-                playerCollider.isTrigger = true;
+                //playerCollider.isTrigger = true;
                 controlDong += Time.deltaTime;
-                if (controlDong > 10)
+                if (controlDong > 20)
                 {
                     controlDong = 0;
-                    rotateSpeed /= 3;
-                    playerSpeed /= 3;
+                    rotateSpeed *= 1.5f;
+                    playerSpeed *= 1.5f;
                     playerRB.velocity = new Vector3(0, playerSpeed);
-                    playerCollider.isTrigger = false;
+                    playerTransform.localScale /= 1.3f;
+                    //playerCollider.isTrigger = false;
                 }
             }
             else if (controlKe != 0)
             {
-                if (controlKe == 0.01f) playerTransform.localScale /= 1.5f;
+                if (controlKe == 0.01f)
+                {
+                    playerLeft.SetBool("p3", true);
+                    PeopleLeft.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    playerTransform.localScale /= 1.5f;
+                    rotateSpeed *= 2.5f;
+                    playerSpeed *= 2.5f;
+                }
+                else if(controlKe> 2)
+                {
+                    playerLeft.SetBool("p3", false);
+                    PeopleLeft.rotation = Quaternion.Euler(0f, 0f, -130f);
+                }
                 controlKe += Time.deltaTime;
-                if (controlKe > 15)
+                playerRB.velocity = new Vector3(playerRB.velocity.x, playerSpeed);
+                if (controlKe > 20)
                 {
                     controlKe = 0;
                     playerTransform.localScale *= 1.5f;
+                    rotateSpeed /= 2.5f;
+                    playerSpeed /= 2.5f;
+                    playerRB.velocity = new Vector3(0, playerSpeed);
                 }
             }
         }
@@ -203,11 +232,13 @@ public class player : MonoBehaviour
         {
             //Destroy(collision.gameObject);
             controlDong = 0.01f;
+            controlScore += 20;
         }
         if (collision.gameObject.tag == "keke")
         {
             //Destroy(collision.gameObject);
             controlKe = 0.01f;
+            controlScore += 20;
         }
     }
 
@@ -327,7 +358,7 @@ public class player : MonoBehaviour
         if (stopThere != 0)
         {
             startThere += Time.deltaTime;
-            playerRB.velocity = new Vector2(playerRB.velocity.x, startThere / 2 * playerSpeed);
+            playerRB.velocity = new Vector2(playerRB.velocity.x, startThere * playerSpeed);
             if (startThere > 1)
             {
                 startThere = 0;
