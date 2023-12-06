@@ -8,7 +8,6 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using UnityEngine.Analytics;
 using System;
-using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -74,7 +73,7 @@ public class Login : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             effectVolume.Play();
         }
@@ -86,7 +85,7 @@ public class Login : MonoBehaviour
     public void LoginButton()
     {
         try
-        { 
+        {
             conn.Open();
             Debug.Log("connect successful");
 
@@ -119,7 +118,7 @@ public class Login : MonoBehaviour
                     Debug.Log("失败");
                 }
             }
-            if(flag == 1)
+            if (flag == 1)
             {
                 // 跳转到游戏模式选择界面
                 gameModePage.gameObject.SetActive(true);
@@ -155,7 +154,8 @@ public class Login : MonoBehaviour
         {
             remind.gameObject.SetActive(false);
             registerPage.gameObject.SetActive(false);
-        } else if(i == 1)
+        }
+        else if (i == 1)
         {
             remind.gameObject.SetActive(false);
         }
@@ -186,10 +186,10 @@ public class Login : MonoBehaviour
             Debug.Log(sqlQuary);
 
             MySqlCommand comd = new MySqlCommand(sqlQuary, conn);// 创建MySqlCommand对象，负责对数据库进行操作
-            
+
             MySqlDataReader reader = comd.ExecuteReader();// 读取数据库
 
-            if(usernameReg.text == "" || passwordReg.text == "")
+            if (usernameReg.text == "" || passwordReg.text == "")
             {
                 Debug.Log("失败");
 
@@ -219,7 +219,7 @@ public class Login : MonoBehaviour
                     }
                 }
                 reader.Close();
-                if(flag == 0)
+                if (flag == 0)
                 {
                     Debug.Log("成功");
 
@@ -309,7 +309,7 @@ public class Login : MonoBehaviour
     /// </summary>
     public void TeamNameToGame()
     {
-        if(teamName.text == "")
+        if (teamName.text == "")
         {
             teamName.text = "队伍" + UnityEngine.Random.Range(0, 1000);
         }
