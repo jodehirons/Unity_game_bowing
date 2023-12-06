@@ -12,10 +12,12 @@ public class buff : MonoBehaviour
     public Transform player;
     public bool isPlaying = true;
     public bool isPaused = true;
+    public float control1;
 
     private void Start()
     {
         Help = GetComponents<AudioSource>();
+        control1= 0;
     }
 
     void Update()
@@ -33,7 +35,7 @@ public class buff : MonoBehaviour
         //audioSource.volume = volume;
         if (player.position.y + 8 > transform.position.y)
         {
-            if(isPlaying && player.position.y > 10)
+            if(isPlaying && transform.position.y > 10)
             {
                 Help[0].Play();
                 isPlaying = false;
@@ -46,24 +48,32 @@ public class buff : MonoBehaviour
 
         if(player.position.y > transform.position.y)
         {
-            if(isPaused && player.position.y > 10)
+            if(isPaused && transform.position.y > 10)
             {
                 Help[0].Stop();
-                Help[1].Play();
                 Help[2].Play();
+                Help[3].Play();
                 isPaused = false;
+                control1 = 0.01f;
             }
-            float distance = Vector3.Distance(player.position, transform.position);
-            float volume = Mathf.Clamp01(5f / (distance * 1f));
-            Help[1].volume = volume;
-            Help[2].volume = volume;
         }
 
-        if(player.position.y > transform.position.y + 10)
+        if (control1 != 0)
         {
-            Help[1].Stop();
-            Help[2].Stop();
+            control1 += Time.deltaTime;
+
+            if (control1 > 3 && control1 < 3.1f && !Help[1].isPlaying)
+            {
+                Help[1].Play();
+            }
+            if(control1 > 10 && transform.position.y > 10)
+            {
+                Destroy(gameObject);
+            }
         }
+
+        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
