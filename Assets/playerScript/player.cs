@@ -305,10 +305,12 @@ public class player : MonoBehaviour
         if (h2 != 0) playerRight.SetBool("p1", true);
         else playerRight.SetBool("p1", false);
 
-        if (h1 != 0 || h2 != 0)
+        if ((h1 != 0 || h2 != 0) && !boatingAudio.isPlaying)
         {
             boatingAudio.Play();
         }
+        else boatingAudio.Stop();
+       
 
         controlTime += Time.deltaTime;
         if (controlTime < 0.02f) return;
