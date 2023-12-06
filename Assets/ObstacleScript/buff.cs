@@ -35,7 +35,6 @@ public class buff : MonoBehaviour
         {
             if(isPlaying && player.position.y > 10)
             {
-                Debug.Log("djdjbsnjs");
                 Help[0].Play();
                 isPlaying = false;
             }
@@ -51,17 +50,19 @@ public class buff : MonoBehaviour
             {
                 Help[0].Stop();
                 Help[1].Play();
-                Debug.Log("djdjbsnjs");
+                Help[2].Play();
                 isPaused = false;
             }
             float distance = Vector3.Distance(player.position, transform.position);
             float volume = Mathf.Clamp01(5f / (distance * 1f));
             Help[1].volume = volume;
+            Help[2].volume = volume;
         }
 
         if(player.position.y > transform.position.y + 10)
         {
             Help[1].Stop();
+            Help[2].Stop();
         }
     }
 
