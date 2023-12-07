@@ -9,6 +9,7 @@ using System.Data;
 using UnityEngine.Analytics;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 /// <summary>
 /// 登录类，处理登录和注册功能，管理数据库连接等。
@@ -50,6 +51,32 @@ public class Login : MonoBehaviour
     // 教程界面
     public RawImage turorialPage;
 
+    [System.Serializable]
+    class MyMessage
+    {
+        public string result;
+        public string message;
+    }
+    //建立一个玩家信息类用于获取玩家的信息
+    [System.Serializable]
+    class PlayerMessage
+    {
+        public int player_id;
+        public string name;
+        public string password;
+        public double play_time;
+        public int played_round;
+        public double max_score;
+        public int Number_of_cooperation;
+
+    }
+    //建立登录信息类用于获取PHP传来的json数据
+    [System.Serializable]
+    class LoginMessage
+    {
+        public string result;
+        public PlayerMessage data;
+    }
     /// <summary>
     /// 在启用时执行，初始化登录界面和数据库连接。
     /// </summary>
@@ -64,10 +91,6 @@ public class Login : MonoBehaviour
         gameModePage.gameObject.SetActive(false); // 游戏模式选择界面隐藏
         teamNamePage.gameObject.SetActive(false); // 队名输入界面隐
         turorialPage.gameObject.SetActive(false); // 教程页面隐藏
-
-        // mysql连接
-        sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
-        conn = new MySqlConnection(sqlSer);
     }
 
     // Update is called once per frame
@@ -77,70 +100,74 @@ public class Login : MonoBehaviour
         {
             effectVolume.Play();
         }
+
+
+    }
+
+    //如果loginButton被按下，则执行LoginButton函数    
+    public void OnLoginButtonClick()
+    {
+        StartCoroutine(LoginButton());
     }
 
     /// <summary>
     /// 实现用户登录功能，验证用户名和密码。
     /// </summary>
-    public void LoginButton()
+    public IEnumerator LoginButton()
     {
-        try
+
+        int flag = 0;
+        WWWForm form = new WWWForm();
+        form.AddField("username", username.text);
+        form.AddField("password", password.text);
+        // 创建HTTP请求
+
+
+        UnityWebRequest request = UnityWebRequest.Post("http://43.143.185.60/login.php", form);
+        //设置请求头
+        // request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
         {
-            conn.Open();
-            Debug.Log("connect successful");
-
-            string sqlQuary = "SELECT * FROM player;";
-
-            Debug.Log(sqlQuary);
-
-            MySqlCommand comd = new MySqlCommand(sqlQuary, conn);
-
-            MySqlDataReader reader = comd.ExecuteReader();
-
-            int flag = 0;
-
-            while (reader.Read())
+            Debug.Log(request.error);
+        }
+        else
+        {
+            // 获取PHP传入的内容
+            string response = request.downloadHandler.text;
+            // 处理服务器返回的 JSON 格式的响应
+            // 将response作为json格式读出，然后转换为字典格式
+            LoginMessage loginData = JsonUtility.FromJson<LoginMessage>(response);
+            if (loginData.result == "success")
             {
-                //通过reader获得数据库信息
-                Debug.Log(reader.GetString("name"));
-                Debug.Log(reader.GetString("password"));
-                if (reader.GetString("name") == username.text && reader.GetString("password") == password.text)
-                {
-                    Debug.Log("登录成功");
-                    flag = 1;
-                    PlayerPrefs.SetString("username", username.text);
-                    PlayerPrefs.SetInt("player_id", reader.GetInt32("player_id"));
-                    Debug.Log("username: " + PlayerPrefs.GetString("username"));
-                    break;
-                }
-                else
-                {
-                    Debug.Log("失败");
-                }
-            }
-            if (flag == 1)
-            {
-                // 跳转到游戏模式选择界面
-                gameModePage.gameObject.SetActive(true);
+                Debug.Log("登录成功");
+                flag = 1;
+
+                // Handle successful login
+                PlayerPrefs.SetString("username", loginData.data.name);
+                PlayerPrefs.SetInt("player_id", loginData.data.player_id);
             }
             else
             {
-                // 让remindText的文本内容为"用户名或密码错误"
-                tip.text = "用户名或密码错误";
-                i = 2;
-                // 使名为"remind"的rawImage组件出现
-                remind.gameObject.SetActive(true);
+                Debug.Log("Login failed");
+                // Handle failed login
             }
-            reader.Close();
         }
-        catch (System.Exception e)
+        if (flag == 1)
         {
-            Debug.Log("Error:" + e.Message);
+            // 跳转到游戏模式选择界面
+            gameModePage.gameObject.SetActive(true);
         }
-        finally
+        else
         {
-            conn.Close();
+            // 让remindText的文本内容为"用户名或密码错误"
+            tip.text = "用户名或密码错误";
+            i = 2;
+            // 使名为"remind"的rawImage组件出现
+            remind.gameObject.SetActive(true);
         }
+
     }
 
     /// <summary>
@@ -173,80 +200,73 @@ public class Login : MonoBehaviour
     /// <summary>
     /// 实现注册功能，验证用户输入并向数据库插入新用户信息。
     /// </summary>
-    public void RegisterPage_registerButton()
+    public IEnumerator RegisterPage_registerButton()
     {
         // 注册功能实现
-        try
+
+        if (usernameReg.text == "" || passwordReg.text == "")
         {
-            conn.Open();
-            Debug.Log("connect successful");
+            Debug.Log("失败");
 
-            string sqlQuary = "select * from player";
+            tip.text = "用户名或密码不能为空！";
+            i = 1;
+            // 使名为"remind"的rawImage组件出现
+            remind.gameObject.SetActive(true);
+        }
+        else
+        {
+            string url = "http://43.143.185.60/register.php";
 
-            Debug.Log(sqlQuary);
+            WWWForm form = new WWWForm();
+            form.AddField("usernameReg", usernameReg.text);
+            form.AddField("passwordReg", passwordReg.text);
 
-            MySqlCommand comd = new MySqlCommand(sqlQuary, conn);// 创建MySqlCommand对象，负责对数据库进行操作
+            UnityWebRequest request = UnityWebRequest.Post(url, form);
+            yield return request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                //将response作为json格式读出，然后转换为字典格式
 
-            MySqlDataReader reader = comd.ExecuteReader();// 读取数据库
+                string response = request.downloadHandler.text;
+                // 处理服务器返回的 JSON 格式的响应
+                // 将response作为json格式读出，然后转换为字典格式
+                MyMessage responsedata = JsonUtility.FromJson<MyMessage>(response);
 
-            if (usernameReg.text == "" || passwordReg.text == "")
+                //使用返回的json判断读取数据是否成功
+                if (responsedata.result == "success")
+                {
+                    tip.text = "注册成功";
+                }
+                else
+                {
+                    Debug.Log("失败");
+
+                    tip.text = "该用户已存在！";
+                    i = 1;
+                    // 使名为"remind"的rawImage组件出现
+                    remind.gameObject.SetActive(true);
+                }
+
+            }
+            else
             {
                 Debug.Log("失败");
 
-                tip.text = "用户名或密码不能为空！";
+                tip.text = "服务器访问失败！";
                 i = 1;
                 // 使名为"remind"的rawImage组件出现
                 remind.gameObject.SetActive(true);
             }
-            else
-            {
-                int flag = 0;
-                while (reader.Read())
-                {
-                    Debug.Log(reader.GetString("name"));
-                    Debug.Log(reader.GetString("password"));
-                    if (reader.GetString("name") == usernameReg.text)
-                    {
-                        Debug.Log("失败");
 
-                        tip.text = "该用户已存在！";
-
-                        i = 1;
-                        flag = 1;
-                        // 使名为"remind"的rawImage组件出现
-                        remind.gameObject.SetActive(true);
-                        break;
-                    }
-                }
-                reader.Close();
-                if (flag == 0)
-                {
-                    Debug.Log("成功");
-
-                    string sqlQuary2 = "insert into player(name,password,play_time,played_round,max_score,Number_of_cooperation) values ('" + usernameReg.text + "','" + passwordReg.text + "',0,0,0,0)";
-
-                    Debug.Log(sqlQuary2);
-
-                    MySqlCommand comd2 = new MySqlCommand(sqlQuary2, conn);// 创建MySqlCommand对象，负责对数据库进行操作
-
-                    int rowsAffected = comd2.ExecuteNonQuery(); // 执行SQL查询  
-
-                    Debug.Log("插入的行数：" + rowsAffected);
-
-                    // 注册成功提示
-                    tip.text = "注册成功";
-                }
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log("Error:" + e.Message);
-        }
-        finally
-        {
-            conn.Close();
         }
         remind.gameObject.SetActive(true);
+    }
+    /// <summary>
+    /// 控制注册按钮逻辑，跳转至注册功能。
+    /// </summary>
+    public void Register()
+    {
+        StartCoroutine(RegisterPage_registerButton());
     }
 
     /// <summary>
