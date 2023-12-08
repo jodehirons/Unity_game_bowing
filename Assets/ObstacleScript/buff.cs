@@ -13,6 +13,8 @@ public class buff : MonoBehaviour
     public bool isPlaying = true;
     public bool isPaused = true;
     public float control1;
+    public UnityEngine.UI.Slider mainSlider;
+    public UnityEngine.UI.Slider effectSlider;
 
     private void Start()
     {
@@ -22,15 +24,21 @@ public class buff : MonoBehaviour
 
     void Update()
     {
+        if(effectSlider != null)
+        {
+            Help[1].volume = mainSlider.value * effectSlider.value;
+            Help[2].volume = mainSlider.value * effectSlider.value;
+            Help[3].volume = mainSlider.value * effectSlider.value;
+        }
         //if (transform.position.y + 20 < player.position.y)
         //{
         //    Destroy(gameObject);
         //}
 
-        //// »ñÈ¡µ±Ç°ÓÎÏ·¶ÔÏóµ½ÒôÆµÔ´µÄ¾àÀë  
+        //// èŽ·å–å½“å‰æ¸¸æˆå¯¹è±¡åˆ°éŸ³é¢‘æºçš„è·ç¦»  
         //float distance = Vector3.Distance(transform.position, audioSource.transform.position);
 
-        //// ¸ù¾Ý¾àÀëµ÷ÕûÒôÁ¿  
+        //// æ ¹æ®è·ç¦»è°ƒæ•´éŸ³é‡  
         //float volume = Mathf.Clamp01(maxDistance / (distance * volumeStep));
         //audioSource.volume = volume;
         if (player.position.y + 8 > transform.position.y)
@@ -42,7 +50,7 @@ public class buff : MonoBehaviour
             }
             float distance = Vector3.Distance(player.position, transform.position);
             float volume = Mathf.Clamp01(5f / (distance * 1f));
-            Help[0].volume = volume;
+            Help[0].volume = volume * mainSlider.value * effectSlider.value; ;
         }
 
 
