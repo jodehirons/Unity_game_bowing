@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 
-
 public class MapGenerate : MonoBehaviour
 {
     [Header("外部属性")]
@@ -21,6 +20,7 @@ public class MapGenerate : MonoBehaviour
     public float Y_Position = 20.5f;
     public int controlValley;
     public float Y_Back;
+
     public Slider mainSlider;
     public Slider bgmSlider;
 
@@ -37,6 +37,7 @@ public class MapGenerate : MonoBehaviour
     void Update()
     {
         generateMap();
+
         // 根据滑动条的值来设置音量
         if (bgmSlider != null)
         {
@@ -44,16 +45,16 @@ public class MapGenerate : MonoBehaviour
         }
     }
 
-  
+
     void generateMap()
     {
-        if(playerTransform.position.y + 20 > Y_Back)
+        if (playerTransform.position.y + 20 > Y_Back)
         {
             Vector3 a = new Vector3(0, Y_Back, 0);
             Instantiate(Background, a, Quaternion.identity);
             Y_Back += 10;
         }
-        if(playerTransform.position.y + 18 > Y_Position)
+        if (playerTransform.position.y + 18 > Y_Position)
         {
             controlValley++;
             if (controlValley % 3 == 2)
@@ -62,19 +63,19 @@ public class MapGenerate : MonoBehaviour
                 Instantiate(Valley, a, Quaternion.identity);
                 generateObject(Y_Position, 1);
             }
-            else if(controlValley % 5 == 1)
+            else if (controlValley % 5 == 1)
             {
                 float now_Y = Y_Position + 10;
-                for(float i = -6.5f; i <= 6.5f; i += 0.5f)
+                for (float i = -6.5f; i <= 6.5f; i += 0.5f)
                 {
-                    if(i == 3)
+                    if (i == 3)
                     {
-                        Vector3 a = new Vector3(i+1f, now_Y, 0);
+                        Vector3 a = new Vector3(i + 1f, now_Y, 0);
                         i += 2f;
                         Bloods[4].active = true;
                         Instantiate(Bloods[4], a, Quaternion.identity);
                     }
-                    else if(i == -3)
+                    else if (i == -3)
                     {
                         Vector3 a = new Vector3(i + 1f, now_Y, 0);
                         i += 2f;
@@ -83,33 +84,37 @@ public class MapGenerate : MonoBehaviour
                     }
                     else
                     {
-                        Obstacles[6].active = true;
-                        Vector3 a = new Vector3(i,now_Y,0);
-                        Vector3 b = new Vector3(i, now_Y+0.5f, 0);
-                        Vector3 c = new Vector3(i, now_Y-0.5f, 0);
-                        Instantiate(Obstacles[6], a, Quaternion.identity);
-                        Instantiate(Obstacles[6], b, Quaternion.identity);
-                        Instantiate(Obstacles[6], c, Quaternion.identity);
+                        Obstacles[7].active = true;
+                        Vector3 a = new Vector3(i, now_Y, 0);
+                        Vector3 b = new Vector3(i, now_Y + 0.5f, 0);
+                        Vector3 c = new Vector3(i, now_Y - 0.5f, 0);
+                        Instantiate(Obstacles[7], a, Quaternion.identity);
+                        Instantiate(Obstacles[7], b, Quaternion.identity);
+                        Instantiate(Obstacles[7], c, Quaternion.identity);
                     }
                 }
 
                 generateObject(Y_Position, 2);
             }
             else generateObject(Y_Position, 0);
-            for (float i = 0f; i < 18; i++)
+            for (int i = 0; i < 18; i++)
             {
                 Vector3 p_Left = new Vector3(-8.5f, Y_Position, 0);
                 Vector3 p_Right = new Vector3(8.5f, Y_Position, 0);
                 Vector3 p_Rightmid = new Vector3(7.5f, Y_Position, 0);
                 Vector3 p_Leftmid = new Vector3(-7.5f, Y_Position, 0);
-
+                if (i % 5 == 0)
+                {
+                    Instantiate(Obstacles[Random.Range(0, 3) + 8], new Vector3(-8f, Y_Position, 0), Quaternion.Euler(0, 0, 0));
+                    Instantiate(Obstacles[Random.Range(0, 3) + 11], new Vector3(8f, Y_Position, 0), Quaternion.Euler(0, 0, 0));
+                }
                 Instantiate(mid, p_Leftmid, Quaternion.Euler(0, 0, 0));
                 Instantiate(mid, p_Rightmid, Quaternion.Euler(0, 0, 0));
                 Instantiate(LeftMap, p_Left, Quaternion.Euler(0, 0, 90));
                 Instantiate(RightMap, p_Right, Quaternion.Euler(0, 0, -90));
                 Y_Position++;
             }
-            
+
         }
     }
 
@@ -123,33 +128,33 @@ public class MapGenerate : MonoBehaviour
                 i += 4f;
                 gg = 0;
             }
-            float[] arr = {-6f,-4.5f, -3f, -1.5f, 0, 1.5f, 3f, 4.5f, 6f};
+            float[] arr = { -6f, -4.5f, -3f, -1.5f, 0, 1.5f, 3f, 4.5f, 6f };
             bool[] index = new bool[9];
             int mem = 3;
             if (flag % 2 == 1) mem = 1;
             while (mem > 0)
             {
-                int j = Random.Range(0, 1000)%9;
-                if(adjust(index, j))
+                int j = Random.Range(0, 1000) % 9;
+                if (adjust(index, j))
                 {
                     index[j] = true;
                     mem--;
                 }
             }
-            for(int j = 0; j < 9; j++)
+            for (int j = 0; j < 9; j++)
             {
                 if (index[j] && k % 2 == 0)
                 {
                     generateObstacle(arr[j], i);
                 }
-                else if(index[j] && k % 2 == 1)
+                else if (index[j] && k % 2 == 1)
                 {
                     generateWall(arr[j], i);
                 }
                 k++;
             }
-            
-            if(i == Y+4 || i == Y + 13)
+
+            if (i == Y + 4 || i == Y + 13)
             {
                 for (int j = 0; j < 9; j++)
                 {
@@ -160,9 +165,9 @@ public class MapGenerate : MonoBehaviour
                     }
                 }
             }
-            
+
         }
-       
+
     }
 
     bool adjust(bool[] a, int b)
@@ -173,19 +178,23 @@ public class MapGenerate : MonoBehaviour
 
     void map_Init()
     {
-        for (int i = 0; i < 7; i++) Obstacles[i].active = false;
+        for (int i = 0; i < 8; i++) Obstacles[i].active = false;
         for (int i = 0; i < 6; i++) Bloods[i].active = false;
 
-        for (float i = -9.5f; i < 20.5f; i+=1)
+        for (float i = -9.5f; i < 20.5f; i += 1)
         {
             Vector3 p_Left = new Vector3(-8.5f, i, 0);
             Vector3 p_Right = new Vector3(8.5f, i, 0);
             Vector3 p_Rightmid = new Vector3(7.5f, i, 0);
             Vector3 p_Leftmid = new Vector3(-7.5f, i, 0);
-
+            if ((int)i % 6 == 0)
+            {
+                Instantiate(Obstacles[Random.Range(0, 3) + 8], new Vector3(-8f, i, 0), Quaternion.Euler(0, 0, 0));
+                Instantiate(Obstacles[Random.Range(0, 3) + 11], new Vector3(8f, i, 0), Quaternion.Euler(0, 0, 0));
+            }
             Instantiate(mid, p_Leftmid, Quaternion.Euler(0, 0, 90));
             Instantiate(mid, p_Rightmid, Quaternion.Euler(0, 0, -90));
-            Instantiate(LeftMap, p_Left, Quaternion.Euler(0,0,90));
+            Instantiate(LeftMap, p_Left, Quaternion.Euler(0, 0, 90));
             Instantiate(RightMap, p_Right, Quaternion.Euler(0, 0, -90));
         }
         generateObject(0, 0);
@@ -201,51 +210,51 @@ public class MapGenerate : MonoBehaviour
 
     void generateObstacle(float x, float y)
     {
-        
+
         Vector3 a = new Vector3(x, y, 0);
-        int indexa = GetIndex(Random.Range(0, 1000)%6);
+        int indexa = GetIndex(Random.Range(0, 1000) % 7);
         Instantiate(Obstacles[indexa], a, Quaternion.identity);
-        
+
     }
 
     void generateBlood(float x, float y)
     {
         Vector3 a = new Vector3(x, y, 0);
-        int indexa = Random.Range(0, 100)%4;
+        int indexa = Random.Range(0, 100) % 4;
         Bloods[indexa].active = true;
         Instantiate(Bloods[indexa], a, Quaternion.identity);
     }
-    
+
     void generateWall(float x, float y)
     {
-        int t = Random.Range(3, 100)%9;
-        int[,] arr = new int[3, 3]; 
-        for(float i = 0; i < t; )
+        int t = Random.Range(3, 100) % 9;
+        int[,] arr = new int[3, 3];
+        for (float i = 0; i < t;)
         {
             int xi = Random.Range(0, 3);
             int yi = Random.Range(0, 3);
-            if (arr[xi,yi] == 0)
+            if (arr[xi, yi] == 0)
             {
-                arr[xi,yi] = 1;
+                arr[xi, yi] = 1;
                 i++;
             }
         }
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for(int j = 0; j < 3; j++)
+            for (int j = 0; j < 3; j++)
             {
-                if (arr[i,j] == 0)
+                if (arr[i, j] == 0)
                 {
                     float ina = i;
                     float inb = j;
-                    Vector3 a = new Vector3(x-0.5f+ina/2, y-0.5f+inb/2, 0);
-                    Obstacles[6].active = true;
-                    Instantiate(Obstacles[6], a, Quaternion.identity);
+                    Vector3 a = new Vector3(x - 0.5f + ina / 2, y - 0.5f + inb / 2, 0);
+                    Obstacles[7].active = true;
+                    Instantiate(Obstacles[7], a, Quaternion.identity);
                 }
             }
         }
-        
-         
+
+
     }
 }

@@ -103,7 +103,7 @@ public class player : MonoBehaviour
             getMouse();
             if (controlDong != 0)
             {
-                
+
                 if (controlDong == 0.01f)
                 {
                     PeopleLeft.rotation = Quaternion.Euler(0f, 0f, 90f);
@@ -112,7 +112,7 @@ public class player : MonoBehaviour
                     playerSpeed /= 1.5f;
                     playerTransform.localScale *= 1.3f;
                 }
-                else if(controlDong > 2)
+                else if (controlDong > 2)
                 {
                     playerLeft.SetBool("p3", false);
                     PeopleLeft.rotation = Quaternion.Euler(0f, 0f, -130f);
@@ -140,7 +140,7 @@ public class player : MonoBehaviour
                     rotateSpeed *= 2.5f;
                     playerSpeed *= 2.5f;
                 }
-                else if(controlKe> 2)
+                else if (controlKe > 2)
                 {
                     playerLeft.SetBool("p3", false);
                     PeopleLeft.rotation = Quaternion.Euler(0f, 0f, -130f);
@@ -258,7 +258,7 @@ public class player : MonoBehaviour
 
     void getMouse()
     {
-        if(Time.timeScale !=0)
+        if (Time.timeScale != 0)
         {
             Vector3 clickPosition = new Vector3();
             if (Input.GetMouseButtonDown(0))
@@ -345,8 +345,11 @@ public class player : MonoBehaviour
         {
             boatingAudio.Play();
         }
-        else boatingAudio.Stop();
-       
+        if (h1 == 0 && h2 == 0)
+        {
+            boatingAudio.Stop();
+        }
+
 
         controlTime += Time.deltaTime;
         if (controlTime < 0.02f) return;
