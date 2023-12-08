@@ -300,10 +300,36 @@ public class player : MonoBehaviour
         if (h2 < 0) horizontal -= controlChange;
         else if (h2 > 0) horizontal += controlChange;
 
-        if (h1 != 0) playerLeft.SetBool("p1", true);
-        else playerLeft.SetBool("p1", false);
-        if (h2 != 0) playerRight.SetBool("p1", true);
-        else playerRight.SetBool("p1", false);
+        if (h1 < 0)
+        {
+            playerLeft.SetBool("p1", true);
+            playerLeft.SetBool("mirror", false);
+        }
+        else if (h1 > 0)
+        {
+            playerLeft.SetBool("p1", false);
+            playerLeft.SetBool("mirror", true);
+        }
+        else
+        {
+            playerLeft.SetBool("p1", false);
+            playerLeft.SetBool("mirror", false);
+        }
+        if (h2 > 0)
+        {
+            playerRight.SetBool("p1", true);
+            playerRight.SetBool("mirror", false);
+        }
+        else if (h2 < 0)
+        {
+            playerRight.SetBool("mirror", true);
+            playerRight.SetBool("p1", false);
+        }
+        else
+        {
+            playerRight.SetBool("p1", false);
+            playerRight.SetBool("mirror", false);
+        }
 
         if ((h1 != 0 || h2 != 0) && !boatingAudio.isPlaying)
         {
