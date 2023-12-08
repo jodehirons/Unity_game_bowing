@@ -17,7 +17,8 @@ public class UIinGame : MonoBehaviour
     public TMP_InputField teammateText;
     private string sqlSer;
     private MySqlConnection conn;
-
+    public GameObject turorialPage;
+    public GameObject settingsPage;
     [System.Serializable]
     class MyMessage
     {
@@ -30,15 +31,15 @@ public class UIinGame : MonoBehaviour
         ranklist.SetActive(false);
         reminder.SetActive(false);
         teamamatePage.SetActive(false);
-
+        turorialPage.SetActive(false);
+        settingsPage.SetActive(false);
         sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
         conn = new MySqlConnection(sqlSer);
-    }
+}
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void rankShow()
@@ -62,7 +63,15 @@ public class UIinGame : MonoBehaviour
 
     public void pushScore()
     {
-        teamamatePage.SetActive(true);
+        if (teamamatePage.activeSelf == true)
+        {
+            teamamatePage.SetActive(false);
+            return;
+        }
+        else
+        {
+            teamamatePage.SetActive(true);
+        }
     }
 
     public void withPasserby()
@@ -189,6 +198,36 @@ public class UIinGame : MonoBehaviour
         {
             Debug.LogError("Error: " + request.error);
             // 处理错误
+        }
+    }
+    /// <summary>
+    ///  设置界面展示
+    /// </summary>
+    public void SettingsPage()
+    {
+        if (settingsPage.activeSelf == true)
+        {
+            settingsPage.SetActive(false);
+            return;
+        }
+        else
+        {
+            settingsPage.SetActive(true);
+        }
+    }
+    /// <summary>
+    /// 教程界面展示
+    /// <summary>
+    public void TutorialPage()
+    {
+        if (turorialPage.activeSelf == true)
+        {
+            turorialPage.SetActive(false);
+            return;
+        }
+        else
+        {
+            turorialPage.SetActive(true);
         }
     }
 }

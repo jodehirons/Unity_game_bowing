@@ -49,6 +49,9 @@ public class player : MonoBehaviour
     public Animator playerRight;
     public Animator playerColl;
     public Transform PeopleLeft;
+    public TMP_Text pauseText;
+    public Slider mainSlider;
+    public Slider effectSlider;
     void OnEnable()
     {
         Time.timeScale = 1;
@@ -73,6 +76,7 @@ public class player : MonoBehaviour
         {
             ScoreText.text = "积分：" + Mathf.Floor(controlScore);
             Time.timeScale = 0;
+            pauseText.text = "彩笔，你们寄了\r\n最终获得的积分是：";
             gameoverPage.SetActive(true);
             PlayerPrefs.SetInt("score", (int)controlScore);
             score.text = Mathf.Floor(controlScore).ToString();
@@ -182,6 +186,7 @@ public class player : MonoBehaviour
             if (Time.timeScale == 1)
             {
                 Time.timeScale = 0;
+                pauseText.text = "你们目前的得分为：";
                 gameoverPage.SetActive(true);
                 PlayerPrefs.SetInt("score", (int)controlScore);
                 score.text = Mathf.Floor(controlScore).ToString();
@@ -191,6 +196,15 @@ public class player : MonoBehaviour
                 Time.timeScale = 1;
                 gameoverPage.SetActive(false);
             }
+        }
+        // music control
+        // 根据滑动条的值来设置音量
+        if (effectSlider != null)
+        {
+            BloodAudiio.volume = mainSlider.value * effectSlider.value;
+            ObstacleAudio.volume = mainSlider.value * effectSlider.value;
+            boatingAudio.volume = mainSlider.value * effectSlider.value;
+            goldAudio.volume = mainSlider.value * effectSlider.value;
         }
     }
 
@@ -242,8 +256,6 @@ public class player : MonoBehaviour
         }
     }
 
-
-
     void getMouse()
     {
         if(Time.timeScale !=0)
@@ -285,8 +297,6 @@ public class player : MonoBehaviour
             rotateSpeed += 0.07f;
         }
     }
-
-
 
     void playerMove()
     {
@@ -370,6 +380,7 @@ public class player : MonoBehaviour
 
 
     }
+
     private void FixedUpdate()
     {
 
@@ -378,8 +389,6 @@ public class player : MonoBehaviour
 
 
     }
-
-
 
     void adjustStay()
     {

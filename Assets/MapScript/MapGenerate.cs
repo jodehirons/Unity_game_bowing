@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 
 
 public class MapGenerate : MonoBehaviour
@@ -20,6 +21,8 @@ public class MapGenerate : MonoBehaviour
     public float Y_Position = 20.5f;
     public int controlValley;
     public float Y_Back;
+    public Slider mainSlider;
+    public Slider bgmSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,11 @@ public class MapGenerate : MonoBehaviour
     void Update()
     {
         generateMap();
+        // 根据滑动条的值来设置音量
+        if (bgmSlider != null)
+        {
+            BackMusic.volume = mainSlider.value * bgmSlider.value;
+        }
     }
 
   
