@@ -33,9 +33,7 @@ public class UIinGame : MonoBehaviour
         teamamatePage.SetActive(false);
         turorialPage.SetActive(false);
         settingsPage.SetActive(false);
-        sqlSer = "server = mysql.sqlpub.com;port = 3306;user = urrruruu;database = urrruruu;password = 90d7a69b35eb68d7;charset=utf8mb4";
-        conn = new MySqlConnection(sqlSer);
-}
+    }
 
     // Update is called once per frame
     void Update()
@@ -44,7 +42,7 @@ public class UIinGame : MonoBehaviour
 
     public void rankShow()
     {
-        if(ranklist.activeSelf == true)
+        if (ranklist.activeSelf == true)
         {
             ranklist.SetActive(false);
             return;
@@ -105,7 +103,7 @@ public class UIinGame : MonoBehaviour
                 reminderText.text = "上传成功";
                 teamamatePage.SetActive(false);
             }
-            else if(updataData.message == "分数不如之前")
+            else if (updataData.message == "分数不如之前")
             {
                 reminder.SetActive(true);
                 reminderText.text = "分数不如之前";
