@@ -12613,9 +12613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caeef4cf918dd3b4c9e13b3d167d7d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rawImage: {fileID: 0}
+  rawImage: {fileID: 992832455}
   flag: 1
-  player: {fileID: 0}
+  player: {fileID: 332360688}
 --- !u!50 &1202252765
 Rigidbody2D:
   serializedVersion: 4
