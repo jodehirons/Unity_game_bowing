@@ -3875,7 +3875,7 @@ MonoBehaviour:
   shipOut: {x: 0, y: 0, z: 0}
   playerRB: {fileID: 0}
   playerTransform: {fileID: 0}
-  portal: {fileID: 0}
+  portal: {fileID: 1416146389}
   BloodAudiio: {fileID: 0}
   ObstacleAudio: {fileID: 0}
   boatingAudio: {fileID: 315204725}
